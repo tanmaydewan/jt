@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/home.dart';
+import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // ignore: must_be_immutable
@@ -208,7 +209,7 @@ class LogInScreen extends StatelessWidget {
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+        .push(MaterialPageRoute(builder: (context) =>Options()));
   }
 }
 
