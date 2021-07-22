@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/ReuseOptionTile.dart';
 import 'package:just_in_time/screens/home.dart';
-import 'package:just_in_time/screens/register_screen.dart';
+import 'package:just_in_time/screens/registration_Screen.dart';
 
 class Options extends StatelessWidget {
   @override
@@ -29,7 +29,7 @@ class Options extends StatelessWidget {
                   colour: Colors.blueGrey,
                   ontapp: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RegistrationScreen()));
+                        builder: (context) => Registration()));
                   },
                 ),
               ],
