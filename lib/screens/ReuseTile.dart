@@ -22,3 +22,53 @@ class OptionTile extends StatelessWidget {
     );
   }
 }
+
+class TextContainer extends StatelessWidget {
+   TextContainer({required this.tLabel, required this.tIcon});
+
+  final String tLabel;
+  final IconData tIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: tLabel,
+          icon: Icon(tIcon),
+        ),
+      ),
+    );
+  }
+}
+
+class RegTextContainer extends StatelessWidget {
+  const RegTextContainer({
+    Key? key,
+    required this.tController,required this.tIcon, required this.tLabel});
+
+  final TextEditingController tController;
+  final String tLabel;
+  final IconData tIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: TextField(
+        controller: tController,
+        keyboardType: TextInputType.text,
+        textCapitalization: TextCapitalization.none,
+        autocorrect: false,
+        decoration: InputDecoration(
+          labelText: tLabel,
+          icon:  Icon(tIcon),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-// ignore: must_be_immutable
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
+  @override
+  _LogInScreenState createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
   final controllerUsername = TextEditingController();
+
   final controllerPassword = TextEditingController();
+
   bool isLoggedIn = false;
 
   @override
@@ -44,18 +50,7 @@ class LogInScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 40,
                             )),
-                        // FlatButton(
-                        //   color: Colors.black12,
-                        //   textColor: Colors.white,
-                        //   child: Text('Sign Up',
-                        //       style: TextStyle(
-                        //         color: Color(0xFFFFBD73),
-                        //         fontWeight: FontWeight.bold,
-                        //       )),
-                        //   onPressed: () {
-                        //     print('Pressed SignUP!');
-                        //   },
-                        // ),
+                        
                       ],
                     ),
                     Spacer(),
@@ -130,13 +125,6 @@ class LogInScreen extends StatelessWidget {
                         onTap: () {
                               doUserLogin(context);
                           
-
-                          // _navigateToNextScreen(context);
-                          // isLoggedIn ? null : () => doUserLogin();
-
-                          // _navigateToNextScreen(context);
-
-                          print('user does not exist');
                         }),
                   ],
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_in_time/screens/ReuseOptionTile.dart';
+import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/home.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
