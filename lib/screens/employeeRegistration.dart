@@ -3,11 +3,10 @@ import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // ignore: must_be_immutable
-class LogInScreen extends StatelessWidget {
+class EmployeeRegistration extends StatefulWidget {
   final controllerUsername = TextEditingController();
   final controllerPassword = TextEditingController();
   final controllerEmail = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {

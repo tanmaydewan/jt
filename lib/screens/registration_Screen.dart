@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/home.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -44,10 +45,10 @@ class _RegistrationState extends State<Registration> {
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(
-                          Icons.image_aspect_ratio_rounded,
-                          size: 40,
-                        )
+                        RaisedButton(
+                    color: Colors.lightGreenAccent,
+                    onPressed: () {
+                      getFromCamera();
                         // FlutterLogo(
                         //   size: 100.0,
                         // ),
@@ -156,6 +157,16 @@ class _RegistrationState extends State<Registration> {
           )),
     );
   }
+  void getFromCamera() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+        source: ImageSource.camera,
+        maxWidth: 1800,
+        maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+        File imageFile = File(pickedFile.path);
+    }
+}
 }
 
 Future<void> saveReg(String dealerName, String address, String location, String pincode, String taxNumber) async {
