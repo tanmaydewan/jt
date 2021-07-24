@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:just_in_time/resources/location.dart';
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:just_in_time/resources/fetchCurrentLocation.dart';
+import 'package:just_in_time/screens/ReuseTile.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -33,117 +33,33 @@ class _RegistrationState extends State<Registration> {
       appBar: AppBar(
         title: Text('Registration'),
       ),
-      body: new Container(
-          padding: new EdgeInsets.all(20.0),
-          child: new Form(
-            child: new ListView(
+      body:  Container(
+          padding:  EdgeInsets.all(20.0),
+          child:  Form(
+            child:  ListView(
               children: <Widget>[
-                new Container(
-                    padding: new EdgeInsets.all(20.0),
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.image_aspect_ratio_rounded,
-                          size: 40,
-                        )
-                        // FlutterLogo(
-                        //   size: 100.0,
-                        // ),
-                      ],
-                    )),
-                Container(
-                  child: TextField(
-                    controller: controllerDealerName,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Dealer Name',
-                      icon: new Icon(Icons.person),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  child: TextField(
-                    controller: controllerAddress,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Address',
-                      icon: new Icon(Icons.home_max_rounded),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-                // Container(
-                //   child: TextField(
-                    
-                //     controller: controllerLocation,
-                //     keyboardType: TextInputType.text,
-                //     textCapitalization: TextCapitalization.none,
-                //     autocorrect: false,
-                //     decoration: InputDecoration(
-                //       labelText: 'Enter Location',
-                //       icon: new Icon(Icons.location_history),
-                //       border: OutlineInputBorder(
-                //         borderSide: BorderSide(color: Colors.black),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                Container(
-                  child: TextField(
-                    controller: controllerPincode,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Pincocde',
-                      icon: new Icon(Icons.pin_drop),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  child: TextField(
-                    controller: controllerTaxNumber,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Tax Number',
-                      icon: new Icon(Icons.money_off_csred_rounded),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-                new Row(
+                
+                
+                RegTextContainer(tController:controllerDealerName, tIcon: Icons.person, tLabel: 'Enter Dealer Name'),
+                RegTextContainer(tController:controllerAddress, tLabel: 'Enter Address',tIcon: Icons.home_max_rounded,),
+                RegTextContainer(tController:controllerPincode, tIcon: Icons.pin_drop, tLabel: 'Enter Pincocde'),               
+                RegTextContainer(tController:controllerTaxNumber, tIcon: Icons.money_off_csred_rounded, tLabel:'Enter Tax Number'),
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Container(
+                     Container(
                       height: 50.0,
                       width: 210.0,
                       color: Colors.grey.shade700,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 40.0),
-                      child: new ElevatedButton(
+                      child:  ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 Colors.grey.shade700)),
-                        child: new Text(
+                        child:  Text(
                           'Register',
-                          style: new TextStyle(color: Colors.white),
+                          style:  TextStyle(color: Colors.white),
                         ),
                         onPressed: () => doUserRegistration(),
                         // color: Colors.grey.shade700,
@@ -158,12 +74,4 @@ class _RegistrationState extends State<Registration> {
   }
 }
 
-Future<void> saveReg(String dealerName, String address, String pincode, String taxNumber) async {
-    await Future.delayed(Duration(seconds: 1), () {});
-    Location lt = Location();
-    await lt.getCurrentLocation();
-    
-    final location = ParseGeoPoint(latitude: lt.latitude , longitude: lt.longitude); 
-    final regObj = ParseObject('Dealer')..set('name', dealerName)..set('address', address)..set('location',location)..set('pincode', pincode)..set('TaxNumber', taxNumber);
-    await regObj.save();
-  }
+
