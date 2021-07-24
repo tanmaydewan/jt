@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/ReuseOptionTile.dart';
+import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/home.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
 
 class Options extends StatelessWidget {
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +23,7 @@ class Options extends StatelessWidget {
                   colour: Colors.cyan,
                   ontapp: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                        MaterialPageRoute(builder: (context) => LogInScreen()));
                   },
                 ),
                 OptionTile(

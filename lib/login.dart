@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/resources/location.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -128,7 +129,8 @@ class LogInScreen extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          doUserLogin(context);
+                              doUserLogin(context);
+                          
 
                           // _navigateToNextScreen(context);
                           // isLoggedIn ? null : () => doUserLogin();

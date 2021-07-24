@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_in_time/screens/home.dart';
+import 'package:just_in_time/resources/location.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class Registration extends StatefulWidget {
@@ -17,12 +17,11 @@ class _RegistrationState extends State<Registration> {
 
 
   void doUserRegistration() async {
-     await saveReg(controllerDealerName.text,controllerAddress.text,controllerLocation.text,controllerPincode.text,controllerTaxNumber.text);
+     await saveReg(controllerDealerName.text,controllerAddress.text,controllerPincode.text,controllerTaxNumber.text);
      
     setState(() {
       controllerDealerName.clear();
       controllerAddress.clear();
-      controllerLocation.clear();
       controllerPincode.clear();
       controllerTaxNumber.clear();
     });
@@ -83,21 +82,22 @@ class _RegistrationState extends State<Registration> {
                     ),
                   ),
                 ),
-                Container(
-                  child: TextField(
-                    controller: controllerLocation,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Location',
-                      icon: new Icon(Icons.location_history),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   child: TextField(
+                    
+                //     controller: controllerLocation,
+                //     keyboardType: TextInputType.text,
+                //     textCapitalization: TextCapitalization.none,
+                //     autocorrect: false,
+                //     decoration: InputDecoration(
+                //       labelText: 'Enter Location',
+                //       icon: new Icon(Icons.location_history),
+                //       border: OutlineInputBorder(
+                //         borderSide: BorderSide(color: Colors.black),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Container(
                   child: TextField(
                     controller: controllerPincode,
@@ -158,8 +158,12 @@ class _RegistrationState extends State<Registration> {
   }
 }
 
-Future<void> saveReg(String dealerName, String address, String location, String pincode, String taxNumber) async {
+Future<void> saveReg(String dealerName, String address, String pincode, String taxNumber) async {
     await Future.delayed(Duration(seconds: 1), () {});
+    Location lt = Location();
+    await lt.getCurrentLocation();
+    
+    final location = ParseGeoPoint(latitude: lt.latitude , longitude: lt.longitude); 
     final regObj = ParseObject('Dealer')..set('name', dealerName)..set('address', address)..set('location',location)..set('pincode', pincode)..set('TaxNumber', taxNumber);
     await regObj.save();
   }

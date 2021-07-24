@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-// ignore: must_be_immutable
-class LogInScreen extends StatelessWidget {
-  final controllerUsername = TextEditingController();
-  final controllerPassword = TextEditingController();
-  final controllerEmail = TextEditingController();
+class LogInScreen extends StatefulWidget {
+  @override
+  _LogInScreenState createState() => _LogInScreenState();
+}
 
+class _LogInScreenState extends State<LogInScreen> {
+  final controllerUsername = TextEditingController();
+
+  final controllerPassword = TextEditingController();
+
+  final controllerEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +73,7 @@ class LogInScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: Icon(
-                              Icons.username,
+                              Icons.person,
                               color: Color(0xFFFFBD73),
                             ),
                           ),
@@ -76,7 +81,7 @@ class LogInScreen extends StatelessWidget {
                           Expanded(
                             child: TextField(
                               controller: controllerUsername,
-                              enabled: !isLoggedIn,
+                              //enabled: !isLoggedIn,
                               keyboardType: TextInputType.text,
                               textCapitalization: TextCapitalization.none,
                               autocorrect: false,
@@ -102,7 +107,7 @@ class LogInScreen extends StatelessWidget {
                           child: TextField(
                             obscureText: true,
                             controller: controllerEmail,
-                            enabled: !isLoggedIn,
+                           // enabled: !isLoggedIn,
                             keyboardType: TextInputType.text,
                             textCapitalization: TextCapitalization.none,
                             autocorrect: false,
@@ -127,7 +132,7 @@ class LogInScreen extends StatelessWidget {
                           child: TextField(
                             obscureText: true,
                             controller: controllerPassword,
-                            enabled: !isLoggedIn,
+                            //enabled: !isLoggedIn,
                             keyboardType: TextInputType.text,
                             textCapitalization: TextCapitalization.none,
                             autocorrect: false,
@@ -156,7 +161,7 @@ class LogInScreen extends StatelessWidget {
                         ),
                         onTap: () {
                           //doUserLogin(context);
-                          doUserRegistration(context)
+                          doUserRegistration();
                         }),
                   ],
                 ),
@@ -218,8 +223,10 @@ class LogInScreen extends StatelessWidget {
     var response = await user.signUp();
 
     if (response.success) {
+      Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Options()));
       _navigateToNextScreen(context);
-      print("User created")
+      print("User created");
     } else {
       showError(response.error!.message, context);
     }
