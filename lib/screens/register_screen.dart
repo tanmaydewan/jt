@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/screens/ReuseTile.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -8,79 +9,50 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Registration'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Registration'),
       ),
-      body: new Container(
-          padding: new EdgeInsets.all(20.0),
-          child: new Form(
-            child: new ListView(
+      body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Form(
+            child: ListView(
               children: <Widget>[
-                new Container(
-                    padding: new EdgeInsets.all(20.0),
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.image_aspect_ratio_rounded,
-                          size: 40,
-                        )
-                        // FlutterLogo(
-                        //   size: 100.0,
-                        // ),
-                      ],
-                    )),
-                new Container(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: new TextFormField(
-                        decoration: new InputDecoration(
-                      labelText: 'Enter Dealer Name',
-                      icon: new Icon(Icons.person),
-                    ))),
-                new Container(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: new TextFormField(
-                        decoration: new InputDecoration(
-                            labelText: 'Enter Address',
-                            icon: new Icon(Icons.home_max_rounded)))),
-                new Container(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Enter Location',
-                          icon: new Icon(Icons.location_history))),
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.image_aspect_ratio_rounded,
+                        size: 40,
+                      )
+                      
+                    ],
+                  ),
                 ),
-                new Container(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Enter Pincode',
-                          icon: new Icon(Icons.pin_drop))),
-                ),
-                new Container(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: new TextFormField(
-                      decoration: new InputDecoration(
-                          labelText: 'Enter Tax Number',
-                          icon: new Icon(Icons.money_off_csred_rounded))),
-                ),
-                new Row(
+                TextContainer(tLabel:'Enter Dealer Name' , tIcon: Icons.person ),
+                TextContainer(tLabel: 'Enter Address', tIcon:Icons.home_max_rounded),
+                TextContainer(tLabel: 'Enter Pincode', tIcon: Icons.pin_drop),
+                TextContainer(tLabel: 'Enter Tax Number', tIcon:Icons.money_off_csred_rounded),
+                
+                
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Container(
+                    Container(
                       height: 50.0,
                       width: 210.0,
                       color: Colors.grey.shade700,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 40.0),
-                      child: new ElevatedButton(
+                      child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 Colors.grey.shade700)),
-                        child: new Text(
+                        child: Text(
                           'Register',
-                          style: new TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () => print("registered"),
                         // color: Colors.grey.shade700,
@@ -93,12 +65,5 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           )),
     );
   }
-
-  // _performLogin() {
-
-  // }
-
-  // _navigateRegistration() {
-  //   NavigationRouter.switchToRegistration(context);
-  // }
 }
+
