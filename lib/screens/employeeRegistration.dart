@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
+<<<<<<< HEAD
 class LogInScreen extends StatefulWidget {
   @override
   _LogInScreenState createState() => _LogInScreenState();
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+=======
+// ignore: must_be_immutable
+class EmployeeRegistration extends StatefulWidget {
+>>>>>>> ee5a88f32248940a199e52faa87c41464c7bc794
   final controllerUsername = TextEditingController();
 
   final controllerPassword = TextEditingController();
 
+<<<<<<< HEAD
   final controllerEmail = TextEditingController();
 
+=======
+>>>>>>> ee5a88f32248940a199e52faa87c41464c7bc794
   @override
   Widget build(BuildContext context) {
     return SafeArea(

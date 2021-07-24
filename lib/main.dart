@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/login.dart';
-import 'package:just_in_time/resources/location.dart';
-import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 const kBackgroundColor = Color(0xFF202020);
