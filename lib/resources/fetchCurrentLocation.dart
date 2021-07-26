@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:just_in_time/resources/location.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
