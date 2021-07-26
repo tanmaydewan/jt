@@ -14,8 +14,20 @@ class OptionTile extends StatelessWidget {
         child: Expanded(
           child: Container(
             margin: EdgeInsets.all(20),
-            child: Center(child: Text(name)),
-            color: colour,
+            child: Center(
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight:FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: colour,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
           ),
         ),
       ),
@@ -24,7 +36,7 @@ class OptionTile extends StatelessWidget {
 }
 
 class TextContainer extends StatelessWidget {
-   TextContainer({required this.tLabel, required this.tIcon});
+  TextContainer({required this.tLabel, required this.tIcon});
 
   final String tLabel;
   final IconData tIcon;
@@ -44,9 +56,11 @@ class TextContainer extends StatelessWidget {
 }
 
 class RegTextContainer extends StatelessWidget {
-  const RegTextContainer({
-    Key? key,
-    required this.tController,required this.tIcon, required this.tLabel});
+  const RegTextContainer(
+      {Key? key,
+      required this.tController,
+      required this.tIcon,
+      required this.tLabel});
 
   final TextEditingController tController;
   final String tLabel;
@@ -62,7 +76,7 @@ class RegTextContainer extends StatelessWidget {
         autocorrect: false,
         decoration: InputDecoration(
           labelText: tLabel,
-          icon:  Icon(tIcon),
+          icon: Icon(tIcon),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
           ),
@@ -71,4 +85,3 @@ class RegTextContainer extends StatelessWidget {
     );
   }
 }
-
