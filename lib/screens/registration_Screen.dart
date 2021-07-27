@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'dart:io' as Io;
+import 'dart:io';
 import 'dart:ui';
+import 'package:archive/archive.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,49 +20,47 @@ class _RegistrationState extends State<Registration> {
   final controllerPincode = TextEditingController();
   final controllerTaxNumber = TextEditingController();
   late final imagePath;
-   String? k;
-
+  String encodedImage="";
+  
   XFile? _image;
   Future getImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    final image = await ImagePicker().pickImage(source: ImageSource.camera,imageQuality: 50);
     // imagePath =image;
-     final bytes = Io.File(image!.path).readAsBytesSync();
-
-      String img64 = base64.encode(bytes);
-    //final bytes = await Io.File(image!.path).readAsBytes();
-
-    
-
-//String img64 = base64Encode(bytes);
-debugPrint(img64);
-
-    // String img64 = base64Encode(bytes);
-    // String base64Encode(List<int> bytes) => (base64.encode(bytes));
-    
-    
-    
-    
-    
-    
+    final bytes = File(image!.path).readAsBytesSync();
+    encodedImage = base64.encode(bytes);
+  
+    List<int> stringBytes = utf8.encode(encodedImage);
+List<int>? gzipBytes = GZipEncoder().encode(stringBytes);
+String? compressedString = utf8.decode(gzipBytes!, allowMalformed: true);
+print(compressedString);
 
     setState(() {
       _image = image;
-      
+      // encodedImage =  base64.encode(bytes);
+       //print(encodedImage);
 
+       final bytes = File(image.path).readAsBytesSync();
+    encodedImage = base64.encode(bytes);
+  
+    List<int> stringBytes = utf8.encode(encodedImage);
+List<int>? gzipBytes = GZipEncoder().encode(stringBytes);
+String? compressedString = utf8.decode(gzipBytes!, allowMalformed: true);
+print(compressedString);
+encodedImage=compressedString;
      
     });
   }
 
   void doUserRegistration() async {
     await saveReg(controllerDealerName.text, controllerAddress.text,
-        controllerPincode.text, controllerTaxNumber.text, k);
+        controllerPincode.text, controllerTaxNumber.text, encodedImage);
 
     setState(() {
       controllerDealerName.clear();
       controllerAddress.clear();
       controllerPincode.clear();
       controllerTaxNumber.clear();
-       _image=null;
+      _image = null;
     });
   }
 
@@ -96,7 +95,6 @@ debugPrint(img64);
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    
                     Center(
                       child: GestureDetector(
                         onTap: () {
@@ -109,7 +107,7 @@ debugPrint(img64);
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.file(
-                                    Io.File(_image!.path),
+                                    File(_image!.path),
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.fitHeight,
@@ -129,7 +127,6 @@ debugPrint(img64);
                         ),
                       ),
                     ),
-                    
                   ],
                 ),
                 Row(
