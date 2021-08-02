@@ -1,6 +1,7 @@
  import 'dart:math';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:just_in_time/list.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 
@@ -9,12 +10,12 @@ Iterable markers = [];
 
   Iterable markerSItr = Iterable.generate(AppConstant.list.length, (index) {
     return Marker(
-        markerId: MarkerId(AppConstant.list[index]['id']),
+        markerId: MarkerId("1"),
         position: LatLng(
-          AppConstant.list[index]['lat'],
-          AppConstant.list[index]['lon'],
+          lati,
+          longe
         ),
-        infoWindow: InfoWindow(title: AppConstant.list[index]["title"]));
+        infoWindow: InfoWindow(title: dealerName));
   });
 
   

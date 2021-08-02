@@ -1,25 +1,30 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:just_in_time/list.dart';
 import 'package:just_in_time/resources/checkInOut.dart';
 import 'package:just_in_time/resources/location.dart';
 import 'package:just_in_time/resources/server_call.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
+import 'package:just_in_time/screens/search.dart';
 import 'package:just_in_time/screens/timer.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
+
+ 
 }
 
 class _MyAppState extends State<HomeScreen> {
-  final controllerDealerName = TextEditingController();
+  final controllerDealerName = TextEditingController()..text= dealerName;
 
   final controllerDetail = TextEditingController();
   List<ParseObject> results = <ParseObject>[];
   //late GoogleMapController mapController;
   Completer<GoogleMapController> _controller = Completer();
+
   late Stopwatch stopwatch;
   @override
   void initState() {

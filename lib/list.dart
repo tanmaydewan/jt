@@ -1,15 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart';
 import 'package:just_in_time/resources/checkInOut.dart';
-import 'package:just_in_time/screens/options.dart';
+import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
-AppConstant ap= AppConstant();
- var title;
+var dealerName;
+var longe;
+var lati;
 class Lst extends StatefulWidget {
   @override
   _LstState createState() => _LstState();
@@ -22,7 +17,7 @@ class _LstState extends State<Lst> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Parse Query Users"),
+          title: Text("Dealers Near You "),
           backgroundColor: Colors.blueAccent,
           centerTitle: true,
         ),
@@ -56,20 +51,26 @@ class _LstState extends State<Lst> {
                         padding: EdgeInsets.only(top: 10.0),
                         itemCount: AppConstant.list.length,
                         itemBuilder: (context, index) {
-                           title = AppConstant.list[index]["title"];
+                           final title = AppConstant.list[index]["title"];
                           final lat = AppConstant.list[index]["lat"];
                           final lon = AppConstant.list[index]["lon"];
                           //final userVerified = user.a) ?? false;
                           return GestureDetector(
                             onTap: (){
-                              print("title = $title");
+                              setState(() {
+                                dealerName = AppConstant.list[index]["title"];
+                                longe =  AppConstant.list[index]["lon"];
+                                lati=  AppConstant.list[index]["lat"];
+                                Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) =>HomeScreen()));
+                              });
+                              print("title = $dealerName");
+                              
                             },
-                            child: Container(
-                              child: ListTile(
-                                title: Text(
-                                    'Dealer Name: $title'),
-                                subtitle: Text("Location $lat $lon"),
-                              ),
+                            child: ListTile(
+                              title: Text(
+                                  'Dealer Name: $title'),
+                              subtitle: Text("Location $lat $lon"),
                             ),
                           );
                         }, separatorBuilder: (BuildContext context, int index) {return Divider();},);
