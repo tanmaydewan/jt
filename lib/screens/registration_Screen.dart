@@ -5,7 +5,7 @@ import 'package:archive/archive.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:just_in_time/resources/fetchCurrentLocation.dart';
+import 'package:just_in_time/resources/server_call.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
 
 class Registration extends StatefulWidget {
@@ -36,8 +36,7 @@ print(compressedString);
 
     setState(() {
       _image = image;
-      // encodedImage =  base64.encode(bytes);
-       //print(encodedImage);
+      
 
        final bytes = File(image.path).readAsBytesSync();
     encodedImage = base64.encode(bytes);
@@ -75,6 +74,22 @@ encodedImage=compressedString;
           child: Form(
             child: ListView(
               children: <Widget>[
+                Expanded(
+              child: Container(
+                margin: EdgeInsets.only(top: 15),
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/ic_logo.png"),
+                    alignment: Alignment.topCenter,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
                 RegTextContainer(
                     tController: controllerDealerName,
                     tIcon: Icons.person,
@@ -92,9 +107,13 @@ encodedImage=compressedString;
                     tController: controllerTaxNumber,
                     tIcon: Icons.money_off_csred_rounded,
                     tLabel: 'Enter Tax Number'),
+                    SizedBox(
+                      height: 10,
+                    ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    
                     Center(
                       child: GestureDetector(
                         onTap: () {
@@ -102,7 +121,7 @@ encodedImage=compressedString;
                         },
                         child: CircleAvatar(
                           radius: 55,
-                          backgroundColor: Color(0xffFDCF09),
+                          backgroundColor: kColour,
                           child: _image != null
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
@@ -119,10 +138,39 @@ encodedImage=compressedString;
                                       borderRadius: BorderRadius.circular(50)),
                                   width: 100,
                                   height: 100,
-                                  child: Icon(
-                                    Icons.camera_alt,
-                                    color: Colors.grey[800],
+                                  child: Center(child: Text("Visiting Card",
+                                  style: TextStyle(color: Colors.grey[800]),))
+                                ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                     Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          getImage();
+                        },
+                        child: CircleAvatar(
+                          radius: 55,
+                          backgroundColor: kColour,
+                          child: _image != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.file(
+                                    File(_image!.path),
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.fitHeight,
                                   ),
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(50)),
+                                  width: 100,
+                                  height: 100,
+                                  child: Center(child: Text("Shop Front",
+                                  style: TextStyle(color: Colors.grey[800]),))
                                 ),
                         ),
                       ),
@@ -135,13 +183,13 @@ encodedImage=compressedString;
                     Container(
                       height: 50.0,
                       width: 210.0,
-                      color: Colors.grey.shade700,
+                      
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 40.0),
                       child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                                Colors.grey.shade700)),
+                                kColour)),
                         child: Text(
                           'Register',
                           style: TextStyle(color: Colors.white),

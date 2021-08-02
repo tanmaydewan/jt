@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+
+Color kColour = Color(0xFFFFBD73);
+
 class OptionTile extends StatelessWidget {
   OptionTile({required this.name, required this.colour, required this.ontapp});
   final String name;
@@ -21,13 +25,19 @@ class OptionTile extends StatelessWidget {
                   fontSize: 15.0,
                   fontWeight:FontWeight.bold,
                   color: Colors.black,
+                  
                 ),
               ),
             ),
+            
             decoration: BoxDecoration(
+              
               color: colour,
+              
               borderRadius: BorderRadius.circular(10.0),
+              
             ),
+            
           ),
         ),
       ),
@@ -49,6 +59,7 @@ class TextContainer extends StatelessWidget {
         decoration: InputDecoration(
           labelText: tLabel,
           icon: Icon(tIcon),
+          
         ),
       ),
     );
@@ -57,7 +68,7 @@ class TextContainer extends StatelessWidget {
 
 class RegTextContainer extends StatelessWidget {
   const RegTextContainer(
-      {Key? key,
+      {
       required this.tController,
       required this.tIcon,
       required this.tLabel});
@@ -79,6 +90,8 @@ class RegTextContainer extends StatelessWidget {
           icon: Icon(tIcon),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
+            
+            
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -18,156 +19,73 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: <Widget>[
-            Expanded(
+        appBar: AppBar(
+            title: Center(
+                child: Text(
+              "Employee Registration",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            )),
+            automaticallyImplyLeading: false),
+        body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Form(
+            child: ListView(
+              children: <Widget>[
+                Expanded(
               child: Container(
                 margin: EdgeInsets.only(top: 15),
                 height: 200,
                 width: 200,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/ic_logo.png"),
-                    alignment: Alignment.topCenter,
-                  ),
+           image: DecorationImage(
+             image: AssetImage("assets/ic_logo.png"),
+             alignment: Alignment.topCenter,
+           ),
                 ),
               ),
             ),
-            // SizedBox(
-            //   height: 30.0,
-            // ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("SIGN UP",
-                            style: TextStyle(
-                              color: Color(0xFFFFBD73),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                            )),
-                        // FlatButton(
-                        //   color: Colors.black12,
-                        //   textColor: Colors.white,
-                        //   child: Text('Sign Up',
-                        //       style: TextStyle(
-                        //         color: Color(0xFFFFBD73),
-                        //         fontWeight: FontWeight.bold,
-                        //       )),
-                        //   onPressed: () {
-                        //     print('Pressed SignUP!');
-                        //   },
-                        // ),
-                      ],
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 40),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: Icon(
-                              Icons.person,
-                              color: Color(0xFFFFBD73),
-                            ),
-                          ),
-                          
-                          Expanded(
-                            child: TextField(
-                              controller: controllerUsername,
-                              //enabled: !isLoggedIn,
-                              keyboardType: TextInputType.text,
-                              textCapitalization: TextCapitalization.none,
-                              autocorrect: false,
-                              decoration: InputDecoration(
-                                hintText: "Enter Username",
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: Icon(
-                            Icons.alternate_email,
-                            color: Color(0xFFFFBD73),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            obscureText: true,
-                            controller: controllerEmail,
-                           // enabled: !isLoggedIn,
-                            keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.none,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              hintText: "Enter Email",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: Icon(
-                            Icons.lock,
-                            color: Color(0xFFFFBD73),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            obscureText: true,
-                            controller: controllerPassword,
-                            //enabled: !isLoggedIn,
-                            keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.none,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              hintText: "Password",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                        child: Container(
-                          color: Color(0xFFFFBD73),
-                          margin: EdgeInsets.only(top: 10.0),
-                          width: double.maxFinite,
-                          height: 80.0,
-                          child: Center(
-                            child: Text('LogIn',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                )),
-                          ),
-                        ),
-                        onTap: () {
-                          //doUserLogin(context);
-                          doUserRegistration();
-                        }),
-                  ],
-                ),
-              ),
+            SizedBox(
+              height: 30,
             ),
-          ],
+                RegTextContainer(
+             tController: controllerUsername,
+             tIcon: Icons.person,
+             tLabel: 'Enter Username'),
+                RegTextContainer(
+           tController: controllerEmail,
+           tLabel: 'Enter Email',
+           tIcon: Icons.email,
+                ),
+                RegTextContainer(
+             tController: controllerPassword,
+             tIcon: Icons.lock,
+             tLabel: 'Password'),
+                Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: <Widget>[
+             Container(
+               height: 50.0,
+               width: 210.0,
+               
+               margin: const EdgeInsets.symmetric(
+                   horizontal: 20.0, vertical: 40.0),
+               child: ElevatedButton(
+                 style: ButtonStyle(
+                     backgroundColor: MaterialStateProperty.all(
+                         kColour)),
+                 child: Text(
+                   'Register',
+                   style: TextStyle(color: Colors.white),
+                 ),
+                 onPressed: () => doUserRegistration(),
+                 // color: Colors.grey.shade700,
+               ),
+             ),
+           ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -224,7 +142,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     if (response.success) {
       Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => Options()));
+          .push(MaterialPageRoute(builder: (context) => Options()));
       _navigateToNextScreen(context);
       print("User created");
     } else {

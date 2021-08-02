@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/resources/checkInOut.dart';
+import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -8,6 +10,11 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getMArk();
+  }
   final controllerUsername = TextEditingController();
 
   final controllerPassword = TextEditingController();
@@ -18,119 +25,88 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(top: 15),
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/ic_logo.png"),
-                    alignment: Alignment.topCenter,
-                  ),
+        body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Form(
+            child: ListView(
+              children: <Widget>[
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-            ),
-            // SizedBox(
-            //   height: 30.0,
-            // ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("SIGN IN",
-                            style: TextStyle(
-                              color: Color(0xFFFFBD73),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                            )),
-                        
-                      ],
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 40),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: Icon(
-                              Icons.alternate_email,
-                              color: Color(0xFFFFBD73),
-                            ),
-                          ),
-                          Expanded(
-                            child: TextField(
-                              controller: controllerUsername,
-                              enabled: !isLoggedIn,
-                              keyboardType: TextInputType.text,
-                              textCapitalization: TextCapitalization.none,
-                              autocorrect: false,
-                              decoration: InputDecoration(
-                                hintText: "Email Address",
-                              ),
-                            ),
-                          )
-                        ],
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 15),
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/ic_logo.png"),
+                        alignment: Alignment.topCenter,
                       ),
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: Icon(
-                            Icons.lock,
-                            color: Color(0xFFFFBD73),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            obscureText: true,
-                            controller: controllerPassword,
-                            enabled: !isLoggedIn,
-                            keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.none,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              hintText: "Password",
-                            ),
-                          ),
-                        ),
-                      ],
+                  ),
+                ),
+                SizedBox(
+                  height: 90,
+                ),
+                Text("SIGN IN",
+                    style: TextStyle(
+                      color: kColour,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                    )),
+                Expanded(
+                  child: TextField(
+                    controller: controllerUsername,
+                    enabled: !isLoggedIn,
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.none,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.alternate_email),
+                      hintText: "Email Address",
                     ),
-                    Spacer(),
-                    GestureDetector(
-                        child: Container(
-                          color: Color(0xFFFFBD73),
-                          margin: EdgeInsets.only(top: 10.0),
-                          width: double.maxFinite,
-                          height: 80.0,
-                          child: Center(
-                            child: Text('LogIn',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                )),
-                          ),
+                  ),
+                ),
+                Expanded(
+                  child: TextField(
+                    obscureText: true,
+                    controller: controllerPassword,
+                    enabled: !isLoggedIn,
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.none,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.lock),
+                      hintText: "Password",
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 50.0,
+                      width: 210.0,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 40.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(kColour)),
+                        child: Text(
+                          'SIGN IN',
+                          style: TextStyle(color: Colors.white, fontSize: 25),
                         ),
-                        onTap: () {
-                              doUserLogin(context);
-                          
-                        }),
+                        onPressed: () => doUserLogin(context),
+                        // color: Colors.grey.shade700,
+                      ),
+                    ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
