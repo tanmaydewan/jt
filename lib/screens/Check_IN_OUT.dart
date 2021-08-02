@@ -85,7 +85,7 @@ class _MyAppState extends State<HomeScreen> {
   }
 
   void saveDealer() async {
-    await dealerStatus(controllerDealerName.text, controllerDetail.text);
+    await dealerStatus(dealerName, controllerDetail.text);
 
     setState(() {
       controllerDealerName.clear();
@@ -127,11 +127,18 @@ class _MyAppState extends State<HomeScreen> {
                       SizedBox(
                         height: 30,
                       ),
-                      RegTextContainer(
-                          tController: controllerDealerName,
-                          tIcon: Icons.person,
-                          tLabel: 'Enter Dealer Name'),
-                      RegTextContainer(
+                      Center(
+                        child: Text(dealerName,
+                    style: TextStyle(
+                        color: kColour,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40,
+                    )),
+                      ),
+                      SizedBox(
+                        height:15
+                      ),
+             RegTextContainer(
                           tController: controllerDetail,
                           tIcon: Icons.description,
                           tLabel: 'Enter Detail'),
