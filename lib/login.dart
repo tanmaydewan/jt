@@ -15,11 +15,16 @@ class _LogInScreenState extends State<LogInScreen> {
     super.initState();
     getMArk();
   }
+
   final controllerUsername = TextEditingController();
 
   final controllerPassword = TextEditingController();
 
   bool isLoggedIn = false;
+
+  Future<bool> hasUserLogged() async {
+    return Future.value(false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +54,28 @@ class _LogInScreenState extends State<LogInScreen> {
                 SizedBox(
                   height: 90,
                 ),
-                Text("SIGN IN",
-                    style: TextStyle(
-                      color: kColour,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 40),
+                      child: Text(
+                        "SIGN IN",
+                        style: TextStyle(
+                          color: kColour,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                        ),
+                      ),
                     )),
+                // Text("SIGN IN",
+                // textAlign: TextAlign.center,
+
+                //     style: TextStyle(
+                //       color: kColour,
+                //       fontWeight: FontWeight.bold,
+                //       fontSize: 40,
+
+                //     )),
                 Expanded(
                   child: TextField(
                     controller: controllerUsername,
@@ -64,6 +85,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     autocorrect: false,
                     decoration: InputDecoration(
                       icon: Icon(Icons.alternate_email),
+                      fillColor: kColour,
                       hintText: "Email Address",
                     ),
                   ),
@@ -78,6 +100,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     autocorrect: false,
                     decoration: InputDecoration(
                       icon: Icon(Icons.lock),
+                      hoverColor: kColour,
                       hintText: "Password",
                     ),
                   ),

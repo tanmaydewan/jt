@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-
-Color kColour = Color(0xFFFFBD73);
+Color kColour = Color(0xFF5A5656);
 
 class OptionTile extends StatelessWidget {
   OptionTile({required this.name, required this.colour, required this.ontapp});
@@ -17,27 +15,24 @@ class OptionTile extends StatelessWidget {
         onTap: ontapp,
         child: Expanded(
           child: Container(
-            margin: EdgeInsets.all(20),
+            margin: EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
             child: Center(
               child: Text(
                 name,
                 style: TextStyle(
                   fontSize: 15.0,
-                  fontWeight:FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  
                 ),
               ),
             ),
-            
             decoration: BoxDecoration(
-              
               color: colour,
-              
               borderRadius: BorderRadius.circular(10.0),
-              
             ),
-            
           ),
         ),
       ),
@@ -59,7 +54,6 @@ class TextContainer extends StatelessWidget {
         decoration: InputDecoration(
           labelText: tLabel,
           icon: Icon(tIcon),
-          
         ),
       ),
     );
@@ -68,10 +62,7 @@ class TextContainer extends StatelessWidget {
 
 class RegTextContainer extends StatelessWidget {
   const RegTextContainer(
-      {
-      required this.tController,
-      required this.tIcon,
-      required this.tLabel});
+      {required this.tController, required this.tIcon, required this.tLabel});
 
   final TextEditingController tController;
   final String tLabel;
@@ -90,8 +81,6 @@ class RegTextContainer extends StatelessWidget {
           icon: Icon(tIcon),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
-            
-            
           ),
         ),
       ),
