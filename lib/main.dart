@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/login.dart';
-import 'package:just_in_time/screens/options.dart';
+import 'package:just_in_time/screens/optionsAdmin.dart';
+import 'package:just_in_time/screens/optionsEmployee.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // const kBackgroundColor = Color(0xFF202020);
@@ -18,17 +19,17 @@ void main() async {
 
   runApp(MyApp());
 }
-
+ParseUser? currentUser;
 class MyApp extends StatelessWidget {
   Future<bool> hasUserLogged() async {
-    ParseUser currentUser = await ParseUser.currentUser() as ParseUser;
+     currentUser = await ParseUser.currentUser() as ParseUser;
     //Validates that the user's session token is valid
     ParseResponse? userResponse = await ParseUser.getCurrentUserFromServer(
-        currentUser.get('sessionToken'));
+        currentUser!.get('sessionToken'));
 
     if (!userResponse!.success) {
       //Invalid session. Logout
-      await currentUser.logout();
+      await currentUser!.logout();
       return false;
     } else {
       return true;
@@ -57,10 +58,16 @@ class MyApp extends StatelessWidget {
                         child: CircularProgressIndicator()),
                   ),
                 );
-                break;
+
               default:
                 if (snapshot.hasData) {
-                  return Options();
+                  
+                  if (currentUser!["isAdmin"]==true) {
+                    return OptionsAdmin();
+                  } else {
+                    return OptionsEmployee();
+                  }
+                  
                 } else {
                   return LogInScreen();
                 }
@@ -69,3 +76,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

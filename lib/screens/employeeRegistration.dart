@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
-import 'package:just_in_time/screens/options.dart';
+import 'package:just_in_time/screens/optionsAdmin.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -142,7 +142,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     if (response.success) {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => Options()));
+          .push(MaterialPageRoute(builder: (context) => OptionsAdmin()));
       _navigateToNextScreen(context);
       print("User created");
     } else {
@@ -152,6 +152,6 @@ class _LogInScreenState extends State<LogInScreen> {
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => Options()));
+        .push(MaterialPageRoute(builder: (context) => OptionsAdmin()));
   }
 }

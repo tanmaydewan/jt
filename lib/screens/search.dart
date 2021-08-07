@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/resources/checkInOut.dart';
+import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
-class Home extends StatefulWidget {
+var dealerName;
+var longe;
+var lati;
+class Search extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _SearchState createState() => _SearchState();
 }
 
-class _HomeState extends State<Home> {
+class _SearchState extends State<Search> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Parse Query Users"),
+          title: Text("Dealers Near You "),
           backgroundColor: Colors.blueAccent,
           centerTitle: true,
         ),
@@ -42,24 +46,74 @@ class _HomeState extends State<Home> {
                       );
                     }
 
-                    return ListView.builder(
+                    return ListView.separated(
+                        
                         padding: EdgeInsets.only(top: 10.0),
-                        itemCount: snapshot.data!.length,
+                        itemCount: AppConstant.list.length,
                         itemBuilder: (context, index) {
-                          final user = snapshot.data![index] as ParseUser;
-                          final userVerified = user.emailVerified ?? false;
-                          return ListTile(
-                            title: Text(
-                                'Username: ${user.username} - Verified: ${userVerified.toString()}'),
-                            subtitle: Text(user.createdAt.toString()),
+                           final title = AppConstant.list[index]["title"];
+                          final lat = AppConstant.list[index]["lat"];
+                          final lon = AppConstant.list[index]["lon"];
+                          //final userVerified = user.a) ?? false;
+                          return GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                dealerName = AppConstant.list[index]["title"];
+                                longe =  AppConstant.list[index]["lon"];
+                                lati=  AppConstant.list[index]["lat"];
+                                Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) =>HomeScreen()));
+                              });
+                              print("title = $dealerName");
+                              
+                            },
+                            child: 
+
+Expanded(
+          child: Container(
+            margin: EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            child: ListTile(
+              title: Text(
+                'Dealer Name: $title',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+               subtitle: Text("Location $lat $lon"),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        ),
+
                           );
-                        });
+                        }, separatorBuilder: (BuildContext context, int index) {return Divider();},);
                   }
               }
             }));
   }
 
-  Future<List<ParseObject>> doUserQuery() async {
-    return [];
+
+
+ Future<List<ParseObject>> doUserQuery() async {
+    QueryBuilder<ParseUser> queryUsers =
+        QueryBuilder<ParseUser>(ParseUser.forQuery());
+    final ParseResponse apiResponse = await queryUsers.query();
+    getMArk();
+    if (apiResponse.success && apiResponse.results != null) {
+      
+      return apiResponse.results as List<ParseObject>;
+    } else {
+      print("printing elseeee");
+      getMArk();
+      return [];
+    }
   }
 }
