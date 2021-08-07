@@ -20,10 +20,12 @@ void main() async {
 
   runApp(MyApp());
 }
+
 ParseUser? currentUser;
+
 class MyApp extends StatelessWidget {
   Future<bool> hasUserLogged() async {
-     currentUser = await ParseUser.currentUser() as ParseUser;
+    currentUser = await ParseUser.currentUser() as ParseUser;
     //Validates that the user's session token is valid
     ParseResponse? userResponse = await ParseUser.getCurrentUserFromServer(
         currentUser!.get('sessionToken'));
@@ -61,14 +63,13 @@ class MyApp extends StatelessWidget {
                 );
               default:
                 if (snapshot.hasData) {
-                  
-                  if (currentUser!["isAdmin"]==true) {
-                    return OptionsAdmin();
+                  if (currentUser!["isAdmin"] == true) {
+                    return HomeScreen();
                   } else {
-                    return OptionsEmployee();
+                    return HomeScreen();
                   }
-                  
-                  return HomeScreen();
+
+                  // return HomeScreen();
                 } else {
                   return LogInScreen();
                 }
@@ -77,5 +78,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

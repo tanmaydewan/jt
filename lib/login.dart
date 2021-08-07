@@ -5,7 +5,6 @@ import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/optionsAdmin.dart';
 import 'package:just_in_time/screens/optionsEmployee.dart';
 import 'package:just_in_time/screens/Check_IN_OUT.dart';
-import 'package:just_in_time/screens/options.dart';
 import 'package:just_in_time/utils/device_utils.dart';
 import 'package:just_in_time/widgets/app_icon_widget.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
@@ -174,8 +173,6 @@ class _LogInScreenState extends State<LogInScreen> {
     });
     if (response.success) {
       navigateToNextScreen(context);
-
-      isLoggedIn = true;
     } else {
       _showErrorMessage("Login failed. Check your credentials", context);
     }

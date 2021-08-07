@@ -3,6 +3,7 @@ import 'package:just_in_time/list.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
+import 'package:just_in_time/screens/search.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // ignore: must_be_immutable
@@ -75,14 +76,12 @@ class OptionsAdmin extends StatelessWidget {
                                   builder: (context) => Registration()));
                             },
                           ),
-                          
                         ],
                       ),
-                      
                     ),
                     SizedBox(
-                            height: 10,
-                          ),
+                      height: 10,
+                    ),
 
                     // Expanded(
                     //   child: GestureDetector(
@@ -133,8 +132,8 @@ class OptionsAdmin extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                            height: 10,
-                          )
+                      height: 10,
+                    )
                   ],
                 ),
               ),
