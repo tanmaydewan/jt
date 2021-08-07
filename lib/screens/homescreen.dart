@@ -17,6 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return currentUser;
   }
 
+  bool isAdmin() {
+    final a = currentUser["isAdmin"];
+    return a;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -186,7 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _didTapRegisterEmployee(BuildContext context) {
-    // if (currentUser.isA)
+    if (isAdmin()) {
+      _showErrorMessage(
+          "Only admin can create employee. Please contact Support", context);
+    } else {}
   }
 
   void _didTapRegisterDealer(BuildContext context) {}

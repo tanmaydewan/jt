@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/main.dart';
+import 'package:just_in_time/resources/checkInOut.dart';
+import 'package:just_in_time/screens/ReuseTile.dart';
+import 'package:just_in_time/screens/optionsAdmin.dart';
+import 'package:just_in_time/screens/optionsEmployee.dart';
 import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:just_in_time/screens/options.dart';
 import 'package:just_in_time/utils/device_utils.dart';
@@ -156,6 +161,10 @@ class _LogInScreenState extends State<LogInScreen> {
     final username = _userEmailController.text.trim();
     final password = _passwordController.text.trim();
 
+    final QueryBuilder<ParseObject> parseQuery =
+        QueryBuilder<ParseObject>(ParseObject('Dealer'));
+    parseQuery.whereEqualTo("objectId", username);
+    print("objectid  = = ==   $parseQuery");
     final user = ParseUser(username, password, null);
 
     var response = await user.login();
@@ -164,7 +173,9 @@ class _LogInScreenState extends State<LogInScreen> {
       _isLoading = false;
     });
     if (response.success) {
-      _navigateToNextScreen(context);
+      navigateToNextScreen(context);
+
+      isLoggedIn = true;
     } else {
       _showErrorMessage("Login failed. Check your credentials", context);
     }
@@ -193,9 +204,15 @@ class _LogInScreenState extends State<LogInScreen> {
     }
   }
 
-  void _navigateToNextScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+  Future<void> navigateToNextScreen(BuildContext context) async {
+    bool a = await adminCheck();
+    if (a == true) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => OptionsAdmin()));
+    } else {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => OptionsEmployee()));
+    }
   }
 
   @override
@@ -215,4 +232,10 @@ class Login_Successfull extends StatelessWidget {
       color: Colors.green,
     );
   }
+}
+
+Future<bool> adminCheck() async {
+  ParseUser currentUser = await ParseUser.currentUser() as ParseUser;
+  final a = currentUser["isAdmin"];
+  return a;
 }

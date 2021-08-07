@@ -63,6 +63,7 @@ void getMArk() async {
     final QueryBuilder<ParseObject> parseQuery =
         QueryBuilder<ParseObject>(ParseObject('Dealer'));
     parseQuery.whereWithinKilometers('location', gp, 4);
+    
     final ParseResponse apiResponse = await parseQuery.query();
 
     if (apiResponse.success && apiResponse.results != null) {

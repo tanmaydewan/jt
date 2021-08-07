@@ -6,7 +6,7 @@ import 'package:just_in_time/screens/registration_Screen.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // ignore: must_be_immutable
-class Options extends StatelessWidget {
+class OptionsAdmin extends StatelessWidget {
   late ParseUser currentUser;
 
   Future<ParseUser> getUser(BuildContext context) async {
@@ -75,45 +75,66 @@ class Options extends StatelessWidget {
                                   builder: (context) => Registration()));
                             },
                           ),
+                          
+                        ],
+                      ),
+                      
+                    ),
+                    SizedBox(
+                            height: 10,
+                          ),
+
+                    // Expanded(
+                    //   child: GestureDetector(
+                    //       onTap: () async {
+                    //         Navigator.of(context).push(
+                    //             MaterialPageRoute(builder: (context) => Lst()));
+                    //       },
+                    //       child: Container(
+                    //         margin: EdgeInsets.only(
+                    //             top: 15, left: 55, right: 55, bottom: 30),
+                    //         alignment: Alignment.bottomCenter,
+                    //         child: Center(
+                    //           child: Text(
+                    //             "CheckIn/CheckOut",
+                    //             style: TextStyle(
+                    //               fontSize: 15.0,
+                    //               fontWeight: FontWeight.bold,
+                    //               color: Colors.black,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         decoration: BoxDecoration(
+                    //           color: kColour,
+                    //           borderRadius: BorderRadius.circular(10.0),
+                    //         ),
+                    //       )),
+                    // ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          OptionTile(
+                            name: "CheckIn/CheckOut",
+                            colour: kColour,
+                            ontapp: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Lst()));
+                            },
+                          ),
+                          OptionTile(
+                            name: "Search",
+                            colour: kColour,
+                            ontapp: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Search()));
+                            },
+                          ),
                         ],
                       ),
                     ),
-
-                    Expanded(
-                      child: GestureDetector(
-                          onTap: () async {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => Lst()));
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                top: 15, left: 55, right: 55, bottom: 30),
-                            alignment: Alignment.bottomCenter,
-                            child: Center(
-                              child: Text(
-                                "CheckIn/CheckOut",
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: kColour,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          )),
-                    ),
-                    // OptionTile(
-                    //   name: "CheckIn/CheckOut",
-                    //   colour: kColour,
-                    //   ontapp: () async {
-
-                    //     Navigator.of(context).push(
-                    //         MaterialPageRoute(builder: (context) => Lst()));
-                    //   },
-                    // ),
+                    SizedBox(
+                            height: 10,
+                          )
                   ],
                 ),
               ),
