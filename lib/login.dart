@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:just_in_time/resources/checkInOut.dart';
-import 'package:just_in_time/screens/ReuseTile.dart';
+import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:just_in_time/screens/options.dart';
+import 'package:just_in_time/utils/device_utils.dart';
+import 'package:just_in_time/widgets/app_icon_widget.dart';
+import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
+import 'package:just_in_time/widgets/progress_indicator_widget.dart';
+import 'package:just_in_time/widgets/rounded_button_widget.dart';
+import 'package:just_in_time/widgets/textfield_widget.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LogInScreen extends StatefulWidget {
   @override
@@ -10,193 +16,194 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  TextEditingController _userEmailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  var _isLoading;
+
   @override
   void initState() {
     super.initState();
-    getMArk();
-  }
-
-  final controllerUsername = TextEditingController();
-
-  final controllerPassword = TextEditingController();
-
-  bool isLoggedIn = false;
-
-  Future<bool> hasUserLogged() async {
-    return Future.value(false);
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.all(20.0),
-          child: Form(
-            child: ListView(
-              children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 15),
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/ic_logo.png"),
-                        alignment: Alignment.topCenter,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 90,
-                ),
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 40),
-                      child: Text(
-                        "SIGN IN",
-                        style: TextStyle(
-                          color: kColour,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                        ),
-                      ),
-                    )),
-                // Text("SIGN IN",
-                // textAlign: TextAlign.center,
+    return Scaffold(
+      primary: true,
+      appBar: EmptyAppBar(),
+      body: _buildBody(),
+    );
+  }
 
-                //     style: TextStyle(
-                //       color: kColour,
-                //       fontWeight: FontWeight.bold,
-                //       fontSize: 40,
-
-                //     )),
-                Expanded(
-                  child: TextField(
-                    controller: controllerUsername,
-                    enabled: !isLoggedIn,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.alternate_email),
-                      fillColor: kColour,
-                      hintText: "Email Address",
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    controller: controllerPassword,
-                    enabled: !isLoggedIn,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.none,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      hoverColor: kColour,
-                      hintText: "Password",
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+  Widget _buildBody() {
+    return Material(
+      child: Stack(
+        children: <Widget>[
+          MediaQuery.of(context).orientation == Orientation.landscape
+              ? Row(
                   children: <Widget>[
-                    Container(
-                      height: 50.0,
-                      width: 210.0,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 40.0),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(kColour)),
-                        child: Text(
-                          'SIGN IN',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
-                        onPressed: () => doUserLogin(context),
-                        // color: Colors.grey.shade700,
-                      ),
+                    Expanded(
+                      flex: 1,
+                      child: _buildRightSide(),
                     ),
                   ],
-                ),
-              ],
-            ),
-          ),
+                )
+              : Center(child: _buildRightSide()),
+          // Observer(
+          //   builder: (context) {
+          //     return _showError
+          //         ? null
+          //         : _showErrorMessage(
+          //             'Unable to sign in. Please try again or contact the Admin',
+          //             context);
+          //   },
+          // ),
+          Visibility(
+            visible: _isLoading,
+            child: CustomProgressIndicatorWidget(),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRightSide() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AppIconWidget(image: 'assets/ic_logo.png'),
+            SizedBox(height: 64.0),
+            _buildUserIdField(),
+            _buildPasswordField(),
+            SizedBox(height: 24.0),
+            _buildSignInButton()
+          ],
         ),
       ),
     );
   }
 
-  void showSuccess(String message, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Success!"),
-          content: Text(message),
-          actions: <Widget>[
-            new TextButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+  Widget _buildUserIdField() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter email',
+          inputType: TextInputType.emailAddress,
+          icon: Icons.person,
+          iconColor: Colors
+              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+          textController: _userEmailController,
+          inputAction: TextInputAction.next,
+          autoFocus: false,
+          errorText: null,
         );
       },
     );
   }
 
-  void showError(String errorMessage, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Error!"),
-          content: Text(errorMessage),
-          actions: <Widget>[
-            new TextButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+  Widget _buildPasswordField() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter password',
+          isObscure: true,
+          padding: EdgeInsets.only(top: 16.0),
+          icon: Icons.lock,
+          iconColor: Colors.black54,
+          textController: _passwordController,
+          errorText: null,
         );
       },
     );
   }
 
-  void doUserLogin(BuildContext context) async {
-    final username = controllerUsername.text.trim();
-    final password = controllerPassword.text.trim();
+  Widget _buildSignInButton() {
+    return RoundedButtonWidget(
+      buttonText: 'Sign in',
+      buttonColor: Colors.orangeAccent,
+      textColor: Colors.white,
+      onPressed: () {
+        if (_canLogin()) {
+          DeviceUtils.hideKeyboard(context);
+          _signin(context);
+        } else {
+          _showErrorMessage('Please fill in all fields', context);
+        }
+      },
+    );
+  }
+
+  bool _canLogin() {
+    var email = _userEmailController.text.trim();
+    var password = _passwordController.text.trim();
+    if (email.length == 0 || password.length == 0) {
+      return false;
+    }
+    return true;
+  }
+
+  void _signin(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    final username = _userEmailController.text.trim();
+    final password = _passwordController.text.trim();
 
     final user = ParseUser(username, password, null);
 
     var response = await user.login();
 
+    setState(() {
+      _isLoading = false;
+    });
     if (response.success) {
       _navigateToNextScreen(context);
-
-      isLoggedIn = true;
     } else {
-      // showError(response.error!.message);
+      _showErrorMessage("Login failed. Check your credentials", context);
+    }
+  }
 
-      showError(response.error!.message, context);
+  void _showErrorMessage(String message, BuildContext context) {
+    if (message.isNotEmpty) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(message),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => Options()));
+        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    _userEmailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
 

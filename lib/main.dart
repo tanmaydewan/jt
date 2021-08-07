@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/login.dart';
-import 'package:just_in_time/screens/options.dart';
+import 'package:just_in_time/screens/homescreen.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // const kBackgroundColor = Color(0xFF202020);
@@ -57,10 +57,9 @@ class MyApp extends StatelessWidget {
                         child: CircularProgressIndicator()),
                   ),
                 );
-                break;
               default:
                 if (snapshot.hasData) {
-                  return Options();
+                  return HomeScreen();
                 } else {
                   return LogInScreen();
                 }

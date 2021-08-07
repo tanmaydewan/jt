@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_in_time/list.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/employeeRegistration.dart';
-import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
-import 'package:just_in_time/screens/search.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // ignore: must_be_immutable
