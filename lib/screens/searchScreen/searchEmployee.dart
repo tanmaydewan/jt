@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/resources/checkInOut.dart';
 import 'package:just_in_time/screens/Check_IN_OUT.dart';
+import 'package:just_in_time/screens/searchScreen/searchsecond.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-var dealerName;
-var longe;
-var lati;
+var employeeName;
 
-class Lst extends StatefulWidget {
+class SearchEmployee extends StatefulWidget {
   @override
-  _LstState createState() => _LstState();
+  _SearchEmployee createState() => _SearchEmployee();
 }
 
-class _LstState extends State<Lst> {
+class _SearchEmployee extends State<SearchEmployee> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Dealers Near You "),
+          title: Text("Employees"),
           backgroundColor: Colors.blueAccent,
           centerTitle: true,
         ),
         key: _scaffoldKey,
         body: FutureBuilder<List<ParseObject>>(
-            future: doUserQuery(),
+            future: getEmployee(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
@@ -53,23 +52,38 @@ class _LstState extends State<Lst> {
                       itemCount: AppConstant.list.length,
                       itemBuilder: (context, index) {
                         final title = AppConstant.list[index]["title"];
-                        final lat = AppConstant.list[index]["lat"];
-                        final lon = AppConstant.list[index]["lon"];
                         //final userVerified = user.a) ?? false;
                         return GestureDetector(
                           onTap: () {
+                            // searchsecond();
                             setState(() {
-                              dealerName = AppConstant.list[index]["title"];
-                              longe = AppConstant.list[index]["lon"];
-                              lati = AppConstant.list[index]["lat"];
+                              employeeName = AppConstant.list[index]["title"];
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => HomeScreen()));
                             });
-                            print("title = $dealerName");
+                            print("title = $employeeName");
                           },
-                          child: ListTile(
-                            title: Text('Dealer Name: $title'),
-                            subtitle: Text("Location $lat $lon"),
+                          child: Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                left: 10,
+                                right: 10,
+                              ),
+                              child: ListTile(
+                                title: Text(
+                                  'Employee Name: $title',
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
                         );
                       },
@@ -82,14 +96,10 @@ class _LstState extends State<Lst> {
             }));
   }
 
-  Future<List<ParseObject>> doUserQuery() async {
-    var gp = ParseGeoPoint(
-        latitude: 31.346822921333068, longitude: 75.58387396589404);
-    QueryBuilder<ParseObject> queryUsers =
-        QueryBuilder<ParseObject>(ParseObject('Dealer'));
-    queryUsers.whereWithinKilometers('location', gp, 4);
+  Future<List<ParseObject>> getEmployee() async {
+    QueryBuilder<ParseUser> queryUsers =
+        QueryBuilder<ParseUser>(ParseUser.forQuery());
     final ParseResponse apiResponse = await queryUsers.query();
-
     if (apiResponse.success && apiResponse.results != null) {
       return apiResponse.results as List<ParseObject>;
     } else {

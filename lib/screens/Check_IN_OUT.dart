@@ -12,12 +12,10 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
-
- 
 }
 
 class _MyAppState extends State<HomeScreen> {
-  final controllerDealerName = TextEditingController()..text= dealerName;
+  final controllerDealerName = TextEditingController()..text = dealerName;
 
   final controllerDetail = TextEditingController();
   List<ParseObject> results = <ParseObject>[];
@@ -128,16 +126,14 @@ class _MyAppState extends State<HomeScreen> {
                       ),
                       Center(
                         child: Text(dealerName,
-                    style: TextStyle(
-                        color: kColour,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                    )),
+                            style: TextStyle(
+                              color: kColour,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40,
+                            )),
                       ),
-                      SizedBox(
-                        height:15
-                      ),
-             RegTextContainer(
+                      SizedBox(height: 15),
+                      RegTextContainer(
                           tController: controllerDetail,
                           tIcon: Icons.description,
                           tLabel: 'Enter Detail'),

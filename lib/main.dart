@@ -3,6 +3,7 @@ import 'package:just_in_time/login.dart';
 import 'package:just_in_time/screens/optionsAdmin.dart';
 import 'package:just_in_time/screens/optionsEmployee.dart';
 import 'package:just_in_time/screens/homescreen.dart';
+import 'package:just_in_time/screens/searchScreen/searchsecond.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // const kBackgroundColor = Color(0xFF202020);
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: kPrimaryColor,
       ),
-      // home: LogInScreen(),
+
+      // home: SearchSecond(),
       home: FutureBuilder<bool>(
           future: hasUserLogged(),
           builder: (context, snapshot) {
