@@ -102,134 +102,125 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      primary: true,
       appBar: EmptyAppBar(),
-      body: Container(
-          padding: EdgeInsets.all(20.0),
-          child: Form(
-            child: ListView(
-              children: <Widget>[
-                SizedBox(
-                  height: 30,
-                ),
-                RegTextContainer(
-                    tController: controllerDealerName,
-                    tIcon: Icons.person,
-                    tLabel: 'Enter Dealer Name'),
-                RegTextContainer(
-                  tController: controllerAddress,
-                  tLabel: 'Enter Address',
-                  tIcon: Icons.home_max_rounded,
-                ),
-                RegTextContainer(
-                    tController: controllerPincode,
-                    tIcon: Icons.pin_drop,
-                    tLabel: 'Enter Pincocde'),
-                RegTextContainer(
-                    tController: controllerTaxNumber,
-                    tIcon: Icons.money_off_csred_rounded,
-                    tLabel: 'Enter Tax Number'),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          getImage();
-                        },
-                        child: CircleAvatar(
-                          radius: 55,
-                          backgroundColor: kColour,
-                          child: _image != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Image.file(
-                                    File(_image!.path),
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(50)),
-                                  width: 100,
-                                  height: 100,
-                                  child: Center(
-                                      child: Text(
-                                    "Visiting Card",
-                                    style: TextStyle(color: Colors.grey[800]),
-                                  ))),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          getImage();
-                        },
-                        child: CircleAvatar(
-                          radius: 55,
-                          backgroundColor: kColour,
-                          child: _image != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Image.file(
-                                    File(_image!.path),
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(50)),
-                                  width: 100,
-                                  height: 100,
-                                  child: Center(
-                                      child: Text(
-                                    "Shop Front",
-                                    style: TextStyle(color: Colors.grey[800]),
-                                  ))),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 50.0,
-                      width: 210.0,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 40.0),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(kColour)),
-                        child: Text(
-                          'Register',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () => doUserRegistration(),
-                        // color: Colors.grey.shade700,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )),
+      body: _buildBody(),
     );
   }
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: EmptyAppBar(),
+  //     body: Container(
+  //         padding: EdgeInsets.all(20.0),
+  //         child: Form(
+  //           child: ListView(
+  //             children: <Widget>[
+  //               SizedBox(
+  //                 height: 30,
+  //               ),
+
+  //               SizedBox(
+  //                 height: 10,
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                 children: [
+  //                   Center(
+  //                     child: GestureDetector(
+  //                       onTap: () {
+  //                         getImage();
+  //                       },
+  //                       child: CircleAvatar(
+  //                         radius: 55,
+  //                         backgroundColor: kColour,
+  //                         child: _image != null
+  //                             ? ClipRRect(
+  //                                 borderRadius: BorderRadius.circular(50),
+  //                                 child: Image.file(
+  //                                   File(_image!.path),
+  //                                   width: 100,
+  //                                   height: 100,
+  //                                   fit: BoxFit.fitHeight,
+  //                                 ),
+  //                               )
+  //                             : Container(
+  //                                 decoration: BoxDecoration(
+  //                                     color: Colors.grey[200],
+  //                                     borderRadius: BorderRadius.circular(50)),
+  //                                 width: 100,
+  //                                 height: 100,
+  //                                 child: Center(
+  //                                     child: Text(
+  //                                   "Visiting Card",
+  //                                   style: TextStyle(color: Colors.grey[800]),
+  //                                 ))),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 10,
+  //                   ),
+  //                   Center(
+  //                     child: GestureDetector(
+  //                       onTap: () {
+  //                         getImage();
+  //                       },
+  //                       child: CircleAvatar(
+  //                         radius: 55,
+  //                         backgroundColor: kColour,
+  //                         child: _image != null
+  //                             ? ClipRRect(
+  //                                 borderRadius: BorderRadius.circular(50),
+  //                                 child: Image.file(
+  //                                   File(_image!.path),
+  //                                   width: 100,
+  //                                   height: 100,
+  //                                   fit: BoxFit.fitHeight,
+  //                                 ),
+  //                               )
+  //                             : Container(
+  //                                 decoration: BoxDecoration(
+  //                                     color: Colors.grey[200],
+  //                                     borderRadius: BorderRadius.circular(50)),
+  //                                 width: 100,
+  //                                 height: 100,
+  //                                 child: Center(
+  //                                     child: Text(
+  //                                   "Shop Front",
+  //                                   style: TextStyle(color: Colors.grey[800]),
+  //                                 ))),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: <Widget>[
+  //                   Container(
+  //                     height: 50.0,
+  //                     width: 210.0,
+  //                     margin: const EdgeInsets.symmetric(
+  //                         horizontal: 20.0, vertical: 40.0),
+  //                     child: ElevatedButton(
+  //                       style: ButtonStyle(
+  //                           backgroundColor:
+  //                               MaterialStateProperty.all(kColour)),
+  //                       child: Text(
+  //                         'Register',
+  //                         style: TextStyle(color: Colors.white),
+  //                       ),
+  //                       onPressed: () => doUserRegistration(),
+  //                       // color: Colors.grey.shade700,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           ),
+  //         )),
+  //   );
+  // }
 
   Widget _buildUserIdField() {
     return Observer(

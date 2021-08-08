@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/screens/nearbyDealers.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
 import 'package:just_in_time/widgets/progress_indicator_widget.dart';
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _optionsWidgetRow1() {
     return SizedBox(
-        height: 150, // Some height
+        height: 180, // Some height
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -123,40 +124,44 @@ class _HomeScreenState extends State<HomeScreen> {
             GestureDetector(
                 onTap: () => {_didTapRegisterEmployee(context)},
                 child: Card(
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                      IconButton(
-                          onPressed: null,
-                          icon: Image.asset(
-                            "assets/register_employee.jpeg",
-                            height: 50,
-                            width: 50,
-                          )),
-                      Text("Register Employee",
-                          textAlign: TextAlign.left,
-                          textScaleFactor: 1.0,
-                          style: TextStyle(color: Colors.black54))
-                    ]))),
+                    child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              IconButton(
+                                  onPressed: null,
+                                  icon: Image.asset(
+                                    "assets/register_employee.jpeg",
+                                    height: 50,
+                                    width: 50,
+                                  )),
+                              Text("Register Employee",
+                                  textAlign: TextAlign.left,
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(color: Colors.black54))
+                            ])))),
             Spacer(),
             GestureDetector(
                 onTap: () => {_didTapRegisterDealer(context)},
                 child: Card(
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                      IconButton(
-                          onPressed: null,
-                          icon: Image.asset(
-                            "assets/register_dealer.jpeg",
-                            height: 50,
-                            width: 50,
-                          )),
-                      Text("Register Dealer",
-                          textAlign: TextAlign.left,
-                          textScaleFactor: 1.0,
-                          style: TextStyle(color: Colors.black54))
-                    ])))
+                    child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              IconButton(
+                                  onPressed: null,
+                                  icon: Image.asset(
+                                    "assets/register_dealer.jpeg",
+                                    height: 50,
+                                    width: 50,
+                                  )),
+                              Text("Register Dealer",
+                                  textAlign: TextAlign.left,
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(color: Colors.black54))
+                            ]))))
           ],
         ));
   }
@@ -172,21 +177,23 @@ class _HomeScreenState extends State<HomeScreen> {
             GestureDetector(
                 onTap: () => {_didTapCheckinout(context)},
                 child: Card(
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                      IconButton(
-                          onPressed: null,
-                          icon: Image.asset(
-                            "assets/checkin_out.jpeg",
-                            height: 50,
-                            width: 50,
-                          )),
-                      Text("Checkin / Checkout",
-                          textAlign: TextAlign.left,
-                          textScaleFactor: 1.0,
-                          style: TextStyle(color: Colors.black54))
-                    ]))),
+                    child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              IconButton(
+                                  onPressed: null,
+                                  icon: Image.asset(
+                                    "assets/checkin_out.jpeg",
+                                    height: 50,
+                                    width: 50,
+                                  )),
+                              Text("Checkin / Checkout",
+                                  textAlign: TextAlign.left,
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(color: Colors.black54))
+                            ])))),
           ],
         ));
   }
@@ -203,7 +210,10 @@ class _HomeScreenState extends State<HomeScreen> {
         .push(MaterialPageRoute(builder: (context) => Registration()));
   }
 
-  void _didTapCheckinout(BuildContext context) {}
+  void _didTapCheckinout(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => NearbyDealersScreen()));
+  }
 
   void _showErrorMessage(String message, BuildContext context) {
     if (message.isNotEmpty) {

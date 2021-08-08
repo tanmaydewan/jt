@@ -26,7 +26,6 @@ class OptionsAdmin extends StatelessWidget {
               child: Container(
                   width: 100, height: 100, child: CircularProgressIndicator()),
             );
-            break;
           default:
             return WillPopScope(
               onWillPop: () async => false,
