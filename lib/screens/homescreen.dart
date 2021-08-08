@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/screens/registration_Screen.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
 import 'package:just_in_time/widgets/progress_indicator_widget.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -197,7 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {}
   }
 
-  void _didTapRegisterDealer(BuildContext context) {}
+  void _didTapRegisterDealer(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Registration()));
+  }
 
   void _didTapCheckinout(BuildContext context) {}
 
