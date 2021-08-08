@@ -45,7 +45,7 @@ class _NearbydealersScreenState extends State<NearbyDealersScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 30.0),
+              SizedBox(height: 24.0),
               _dealersLoaded
                   ? Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
