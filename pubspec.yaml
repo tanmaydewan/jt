@@ -29,9 +29,18 @@ dependencies:
   implicitly_animated_reorderable_list: ^0.4.0
   material_design_icons_flutter: ^4.0.5955
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/ic_logo.png"
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

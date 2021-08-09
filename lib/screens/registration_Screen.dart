@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'package:archive/archive.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:http/http.dart' as http;
-import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,34 +26,6 @@ class _RegistrationState extends State<Registration> {
 
   String status = "";
 
-  // _RegistrationState(this.status);
-  // XFile? _image;
-  // Future getImage() async {
-  //   final image = await ImagePicker()
-  //       .pickImage(source: ImageSource.camera, imageQuality: 30);
-  //   // imagePath =image;
-  //   final bytes = File(image!.path).readAsBytesSync();
-  //   encodedImage = base64.encode(bytes);
-
-  //   List<int> stringBytes = utf8.encode(encodedImage);
-  //   List<int>? gzipBytes = GZipEncoder().encode(stringBytes);
-  //   String? compressedString = utf8.decode(gzipBytes!, allowMalformed: true);
-  //   print(compressedString);
-
-  //   setState(() {
-  //     _image = image;
-
-  //     final bytes = File(image.path).readAsBytesSync();
-  //     encodedImage = base64.encode(bytes);
-
-  //     List<int> stringBytes = utf8.encode(encodedImage);
-  //     List<int>? gzipBytes = GZipEncoder().encode(stringBytes);
-  //     String? compressedString = utf8.decode(gzipBytes!, allowMalformed: true);
-  //     print(compressedString);
-  //     encodedImage = compressedString;
-  //   });
-  // }
-
   var serverReceiverPath =
       "https://parseapi.kubitechsolutions.com/api/s3/image/upload";
   Future<String?> uploadImage(file) async {
@@ -75,7 +45,7 @@ class _RegistrationState extends State<Registration> {
   XFile? _image;
   Future getImage() async {
     final image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 30);
+        .pickImage(source: ImageSource.camera, imageQuality: 30);
     var res = await uploadImage(image!.path);
     print(res);
     // var file = await _downloadFile(url);
@@ -317,119 +287,4 @@ class _RegistrationState extends State<Registration> {
   void _backPressed() {
     Navigator.of(context).pop();
   }
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: EmptyAppBar(),
-  //     body: Container(
-  //         padding: EdgeInsets.all(20.0),
-  //         child: Form(
-  //           child: ListView(
-  //             children: <Widget>[
-  //               SizedBox(
-  //                 height: 30,
-  //               ),
-
-  //               SizedBox(
-  //                 height: 10,
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                 children: [
-  //                   Center(
-  //                     child: GestureDetector(
-  //                       onTap: () {
-  //                         getImage();
-  //                       },
-  //                       child: CircleAvatar(
-  //                         radius: 55,
-  //                         backgroundColor: kColour,
-  //                         child: _image != null
-  //                             ? ClipRRect(
-  //                                 borderRadius: BorderRadius.circular(50),
-  //                                 child: Image.file(
-  //                                   File(_image!.path),
-  //                                   width: 100,
-  //                                   height: 100,
-  //                                   fit: BoxFit.fitHeight,
-  //                                 ),
-  //                               )
-  //                             : Container(
-  //                                 decoration: BoxDecoration(
-  //                                     color: Colors.grey[200],
-  //                                     borderRadius: BorderRadius.circular(50)),
-  //                                 width: 100,
-  //                                 height: 100,
-  //                                 child: Center(
-  //                                     child: Text(
-  //                                   "Visiting Card",
-  //                                   style: TextStyle(color: Colors.grey[800]),
-  //                                 ))),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   SizedBox(
-  //                     height: 10,
-  //                   ),
-  //                   Center(
-  //                     child: GestureDetector(
-  //                       onTap: () {
-  //                         getImage();
-  //                       },
-  //                       child: CircleAvatar(
-  //                         radius: 55,
-  //                         backgroundColor: kColour,
-  //                         child: _image != null
-  //                             ? ClipRRect(
-  //                                 borderRadius: BorderRadius.circular(50),
-  //                                 child: Image.file(
-  //                                   File(_image!.path),
-  //                                   width: 100,
-  //                                   height: 100,
-  //                                   fit: BoxFit.fitHeight,
-  //                                 ),
-  //                               )
-  //                             : Container(
-  //                                 decoration: BoxDecoration(
-  //                                     color: Colors.grey[200],
-  //                                     borderRadius: BorderRadius.circular(50)),
-  //                                 width: 100,
-  //                                 height: 100,
-  //                                 child: Center(
-  //                                     child: Text(
-  //                                   "Shop Front",
-  //                                   style: TextStyle(color: Colors.grey[800]),
-  //                                 ))),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: <Widget>[
-  //                   Container(
-  //                     height: 50.0,
-  //                     width: 210.0,
-  //                     margin: const EdgeInsets.symmetric(
-  //                         horizontal: 20.0, vertical: 40.0),
-  //                     child: ElevatedButton(
-  //                       style: ButtonStyle(
-  //                           backgroundColor:
-  //                               MaterialStateProperty.all(kColour)),
-  //                       child: Text(
-  //                         'Register',
-  //                         style: TextStyle(color: Colors.white),
-  //                       ),
-  //                       onPressed: () => doUserRegistration(),
-  //                       // color: Colors.grey.shade700,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           ),
-  //         )),
-  //   );
-  // }
-
 }
