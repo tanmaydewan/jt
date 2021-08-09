@@ -59,7 +59,7 @@ class _SearchEmployee extends State<SearchEmployee> {
                             setState(() {
                               employeeName = AppConstant.list[index]["title"];
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => CheckInOut()));
                             });
                             print("title = $employeeName");
                           },

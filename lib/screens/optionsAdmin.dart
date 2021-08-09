@@ -64,7 +64,7 @@ class OptionsAdmin extends StatelessWidget {
                             colour: kColour,
                             ontapp: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LogInScreen()));
+                                  builder: (context) => EmployeRegistration()));
                             },
                           ),
                           OptionTile(

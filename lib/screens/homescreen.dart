@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/nearbyDealers.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
@@ -200,9 +201,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _didTapRegisterEmployee(BuildContext context) {
     if (isAdmin()) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => EmployeRegistration()));
+    } else {
       _showErrorMessage(
           "Only admin can create employee. Please contact Support", context);
-    } else {}
+    }
   }
 
   void _didTapRegisterDealer(BuildContext context) {

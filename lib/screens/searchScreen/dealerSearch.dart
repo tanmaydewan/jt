@@ -59,7 +59,7 @@ class _DealerSearchState extends State<DealerSearch> {
                             setState(() {
                               dealerName = AppConstant.list[index]["title"];
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => CheckInOut()));
                             });
                             print("title = $dealerName");
                           },

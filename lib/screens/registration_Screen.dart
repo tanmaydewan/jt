@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:just_in_time/resources/server_call.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
+import 'package:just_in_time/widgets/rounded_button_widget.dart';
 import 'package:just_in_time/widgets/textfield_widget.dart';
 
 class Registration extends StatefulWidget {
@@ -28,7 +29,6 @@ class _RegistrationState extends State<Registration> {
   String status = "";
 
   // _RegistrationState(this.status);
-
   // XFile? _image;
   // Future getImage() async {
   //   final image = await ImagePicker()
@@ -56,10 +56,8 @@ class _RegistrationState extends State<Registration> {
   //   });
   // }
 
-  File? file;
   var serverReceiverPath =
       "https://parseapi.kubitechsolutions.com/api/s3/image/upload";
-
   Future<String?> uploadImage(file) async {
     var request = http.MultipartRequest('POST', Uri.parse(serverReceiverPath));
     request.files.add(await http.MultipartFile.fromPath('file', file));
@@ -73,8 +71,6 @@ class _RegistrationState extends State<Registration> {
   }
 
   // _RegistrationState.fromJson(Map<String, dynamic> json) {
-  //   status = json['status'];
-  // }
 
   XFile? _image;
   Future getImage() async {
@@ -82,7 +78,6 @@ class _RegistrationState extends State<Registration> {
         .pickImage(source: ImageSource.gallery, imageQuality: 30);
     var res = await uploadImage(image!.path);
     print(res);
-
     // var file = await _downloadFile(url);
   }
 
@@ -110,48 +105,117 @@ class _RegistrationState extends State<Registration> {
 
   Widget _buildBody() {
     return Material(
-      child: Expanded(
-          flex: 1,
+        child: Row(children: <Widget>[
+      Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 24.0),
-              Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        onPressed: () => {},
-                        icon: Image.asset(
-                          "assets/back_icon.png",
-                          height: 40,
-                          width: 40,
-                        )),
-                    Text("Register Dealer",
-                        textAlign: TextAlign.left,
-                        textScaleFactor: 2.0,
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold)),
-                    _buildDealerName(),
-                    _buildDealerAdress(),
-                    _buildDealerPincode(),
-                  ]),
-            ],
-          )),
-    );
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 24.0),
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: () => _backPressed(),
+                    icon: Image.asset(
+                      "assets/back_icon.png",
+                      height: 40,
+                      width: 40,
+                    )),
+                Text("Register Dealer",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold))
+              ]),
+          SizedBox(
+            height: 35,
+          ),
+          _buildDealerName(),
+          SizedBox(
+            height: 8,
+          ),
+          _buildDealerAdress(),
+          SizedBox(
+            height: 8,
+          ),
+          _buildDealerPincode(),
+          SizedBox(
+            height: 8,
+          ),
+          _buildTaxNumber(),
+          SizedBox(
+            height: 8,
+          ),
+          _buildImage(),
+          SizedBox(
+            height: 8,
+          ),
+          _buildRegisterDealerDetailButton()
+        ],
+      )),
+    ]));
   }
 
   Widget _buildDealerName() {
+    // return Observer(
+    //   builder: (context) {
+    return TextFieldWidget(
+      hint: 'Enter Deale Name',
+      inputType: TextInputType.emailAddress,
+      icon: Icons.person,
+      iconColor: Colors
+          .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+      textController: controllerDealerName,
+      inputAction: TextInputAction.next,
+      autoFocus: false,
+      errorText: null,
+    );
+    //   },
+    // );
+  }
+
+  Widget _buildDealerAdress() {
+    return TextFieldWidget(
+      hint: 'Enter Adress',
+      inputType: TextInputType.emailAddress,
+      icon: Icons.email,
+      iconColor: Colors
+          .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+      textController: controllerAddress,
+      inputAction: TextInputAction.next,
+      autoFocus: false,
+      errorText: null,
+    );
+  }
+
+  Widget _buildDealerPincode() {
+    return TextFieldWidget(
+      hint: 'Enter Pincode',
+      inputType: TextInputType.emailAddress,
+      icon: Icons.pin_drop_outlined,
+      iconColor: Colors
+          .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+      textController: controllerPincode,
+      inputAction: TextInputAction.next,
+      autoFocus: false,
+      errorText: null,
+    );
+    //   },
+    // );t
+  }
+
+  Widget _buildTaxNumber() {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint: 'Enter Deale Name',
+          hint: 'Enter Tax Number',
           inputType: TextInputType.emailAddress,
-          icon: Icons.person,
+          icon: Icons.attach_money_outlined,
           iconColor: Colors
               .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
-          textController: controllerDealerName,
+          textController: controllerTaxNumber,
           inputAction: TextInputAction.next,
           autoFocus: false,
           errorText: null,
@@ -160,40 +224,98 @@ class _RegistrationState extends State<Registration> {
     );
   }
 
-  _buildDealerAdress() {
+  Widget _buildImage() {
     return Observer(
       builder: (context) {
-        return TextFieldWidget(
-          hint: 'Enter Adress',
-          inputType: TextInputType.emailAddress,
-          icon: Icons.person,
-          iconColor: Colors
-              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
-          textController: controllerAddress,
-          inputAction: TextInputAction.next,
-          autoFocus: false,
-          errorText: null,
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  getImage();
+                },
+                child: CircleAvatar(
+                  radius: 55,
+                  backgroundColor: kColour,
+                  child: _image != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.file(
+                            File(_image!.path),
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(50)),
+                          width: 100,
+                          height: 100,
+                          child: Center(
+                              child: Text(
+                            "Visiting Card",
+                            style: TextStyle(color: Colors.grey[800]),
+                          ))),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  getImage();
+                },
+                child: CircleAvatar(
+                  radius: 55,
+                  backgroundColor: kColour,
+                  child: _image != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.file(
+                            File(_image!.path),
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(50)),
+                          width: 100,
+                          height: 100,
+                          child: Center(
+                              child: Text(
+                            "Shop Front",
+                            style: TextStyle(color: Colors.grey[800]),
+                          ))),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
   }
 
-  _buildDealerPincode() {
-    return Observer(
-      builder: (context) {
-        return TextFieldWidget(
-          hint: 'Enter Pincode',
-          inputType: TextInputType.emailAddress,
-          icon: Icons.person,
-          iconColor: Colors
-              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
-          textController: controllerPincode,
-          inputAction: TextInputAction.next,
-          autoFocus: false,
-          errorText: null,
-        );
+  Widget _buildRegisterDealerDetailButton() {
+    return RoundedButtonWidget(
+      buttonText: 'Register Detail',
+      buttonColor: Colors.orangeAccent,
+      textColor: Colors.white,
+      onPressed: () {
+        doUserRegistration();
       },
     );
+  }
+
+  void _backPressed() {
+    Navigator.of(context).pop();
   }
   // Widget build(BuildContext context) {
   //   return Scaffold(

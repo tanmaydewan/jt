@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_in_time/main.dart';
 import 'package:just_in_time/resources/checkInOut.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
+import 'package:just_in_time/screens/homescreen.dart';
 import 'package:just_in_time/screens/optionsAdmin.dart';
 import 'package:just_in_time/screens/optionsEmployee.dart';
 import 'package:just_in_time/screens/Check_IN_OUT.dart';
@@ -205,7 +206,7 @@ class _LogInScreenState extends State<LogInScreen> {
     bool a = await adminCheck();
     if (a == true) {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => OptionsAdmin()));
+          .push(MaterialPageRoute(builder: (context) => HomeScreen()));
     } else {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => OptionsEmployee()));

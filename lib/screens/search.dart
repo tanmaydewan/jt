@@ -65,7 +65,7 @@ class _SearchState extends State<Search> {
                               longe = AppConstant.list[index]["lon"];
                               lati = AppConstant.list[index]["lat"];
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => CheckInOut()));
                             });
                             print("title = $dealerName");
                           },

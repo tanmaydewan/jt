@@ -9,12 +9,12 @@ import 'package:just_in_time/screens/ReuseTile.dart';
 import 'package:just_in_time/screens/timer.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-class HomeScreen extends StatefulWidget {
+class CheckInOut extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<HomeScreen> {
+class _MyAppState extends State<CheckInOut> {
   final controllerDealerName = TextEditingController()..text = dealerName;
 
   final controllerDetail = TextEditingController();
