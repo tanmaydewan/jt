@@ -36,24 +36,34 @@ class _RegistrationState extends State<Registration> {
     var responseData = await res.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
     var responseJSON = JsonDecoder().convert(responseString);
-    var url = responseJSON["response_data"]["Location"] as String;
-    return url;
+    try {
+      var url = responseJSON["response_data"]["Location"] as String;
+      return url;
+    } catch (error) {
+      return "";
+    }
   }
 
   // _RegistrationState.fromJson(Map<String, dynamic> json) {
 
+  String? _selectedImageUrl;
   XFile? _image;
   Future getImage() async {
     final image = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 30);
+        .pickImage(source: ImageSource.gallery, imageQuality: 30);
     var res = await uploadImage(image!.path);
     print(res);
+    setState(() {
+      _selectedImageUrl = res;
+      _image = image;
+    });
     // var file = await _downloadFile(url);
   }
 
   void doUserRegistration() async {
+    var imageUrl = _selectedImageUrl != null ? _selectedImageUrl! : "";
     await saveReg(controllerDealerName.text, controllerAddress.text,
-        controllerPincode.text, controllerTaxNumber.text, encodedImage);
+        controllerPincode.text, controllerTaxNumber.text, imageUrl);
 
     setState(() {
       controllerDealerName.clear();
@@ -77,54 +87,61 @@ class _RegistrationState extends State<Registration> {
     return Material(
         child: Row(children: <Widget>[
       Expanded(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 24.0),
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                    onPressed: () => _backPressed(),
-                    icon: Image.asset(
-                      "assets/back_icon.png",
-                      height: 40,
-                      width: 40,
-                    )),
-                Text("Register Dealer",
-                    textAlign: TextAlign.left,
-                    textScaleFactor: 2.0,
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold))
-              ]),
-          SizedBox(
-            height: 35,
-          ),
-          _buildDealerName(),
-          SizedBox(
-            height: 8,
-          ),
-          _buildDealerAdress(),
-          SizedBox(
-            height: 8,
-          ),
-          _buildDealerPincode(),
-          SizedBox(
-            height: 8,
-          ),
-          _buildTaxNumber(),
-          SizedBox(
-            height: 8,
-          ),
-          _buildImage(),
-          SizedBox(
-            height: 8,
-          ),
-          _buildRegisterDealerDetailButton()
-        ],
-      )),
+          child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  // SizedBox(height: 24.0),
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            onPressed: () => _backPressed(),
+                            icon: Image.asset(
+                              "assets/back_icon.png",
+                              height: 40,
+                              width: 40,
+                            )),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text("Register Dealer",
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 2.0,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold))
+                      ]),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  _buildDealerName(),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  _buildDealerAdress(),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  _buildDealerPincode(),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  _buildTaxNumber(),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  _buildImage(),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  _buildRegisterDealerDetailButton()
+                ],
+              ))),
     ]));
   }
 
@@ -232,41 +249,39 @@ class _RegistrationState extends State<Registration> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  getImage();
-                },
-                child: CircleAvatar(
-                  radius: 55,
-                  backgroundColor: kColour,
-                  child: _image != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.file(
-                            File(_image!.path),
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(50)),
-                          width: 100,
-                          height: 100,
-                          child: Center(
-                              child: Text(
-                            "Shop Front",
-                            style: TextStyle(color: Colors.grey[800]),
-                          ))),
-                ),
-              ),
-            ),
+            //
+            // Center(
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       getImage();
+            //     },
+            //     child: CircleAvatar(
+            //       radius: 55,
+            //       backgroundColor: kColour,
+            //       child: _image != null
+            //           ? ClipRRect(
+            //               borderRadius: BorderRadius.circular(50),
+            //               child: Image.file(
+            //                 File(_image!.path),
+            //                 width: 100,
+            //                 height: 100,
+            //                 fit: BoxFit.fitHeight,
+            //               ),
+            //             )
+            //           : Container(
+            //               decoration: BoxDecoration(
+            //                   color: Colors.grey[200],
+            //                   borderRadius: BorderRadius.circular(50)),
+            //               width: 100,
+            //               height: 100,
+            //               child: Center(
+            //                   child: Text(
+            //                 "Shop Front",
+            //                 style: TextStyle(color: Colors.grey[800]),
+            //               ))),
+            //     ),
+            //   ),
+            // ),
           ],
         );
       },
@@ -280,6 +295,7 @@ class _RegistrationState extends State<Registration> {
       textColor: Colors.white,
       onPressed: () {
         doUserRegistration();
+        _backPressed();
       },
     );
   }
