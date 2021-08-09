@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:just_in_time/resources/location.dart';
+import 'package:just_in_time/screens/checkinoutScreen.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
 import 'package:just_in_time/widgets/progress_indicator_widget.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -100,9 +101,9 @@ class _NearbydealersScreenState extends State<NearbyDealersScreen> {
                     //final userVerified = user.a) ?? false;
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          _selectedDealer = _dealer;
-                        });
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                CheckinoutScreen(selectedDealer: _dealer)));
                       },
                       child: _buildDealerTile(_dealer),
                     );

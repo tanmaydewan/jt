@@ -116,7 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _optionsWidgetRow1() {
     return SizedBox(
-        height: 180, // Some height
+        height: 150,
+        width: 150, // Some height
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -169,7 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _optionsWidgetRow2() {
     return SizedBox(
-        height: 150, // Some height
+        height: 150,
+        width: 150,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
