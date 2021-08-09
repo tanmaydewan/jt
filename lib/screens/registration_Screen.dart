@@ -107,6 +107,94 @@ class _RegistrationState extends State<Registration> {
       body: _buildBody(),
     );
   }
+
+  Widget _buildBody() {
+    return Material(
+      child: Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 24.0),
+              Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                        onPressed: () => {},
+                        icon: Image.asset(
+                          "assets/back_icon.png",
+                          height: 40,
+                          width: 40,
+                        )),
+                    Text("Register Dealer",
+                        textAlign: TextAlign.left,
+                        textScaleFactor: 2.0,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
+                    _buildDealerName(),
+                    _buildDealerAdress(),
+                    _buildDealerPincode(),
+                  ]),
+            ],
+          )),
+    );
+  }
+
+  Widget _buildDealerName() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter Deale Name',
+          inputType: TextInputType.emailAddress,
+          icon: Icons.person,
+          iconColor: Colors
+              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+          textController: controllerDealerName,
+          inputAction: TextInputAction.next,
+          autoFocus: false,
+          errorText: null,
+        );
+      },
+    );
+  }
+
+  _buildDealerAdress() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter Adress',
+          inputType: TextInputType.emailAddress,
+          icon: Icons.person,
+          iconColor: Colors
+              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+          textController: controllerAddress,
+          inputAction: TextInputAction.next,
+          autoFocus: false,
+          errorText: null,
+        );
+      },
+    );
+  }
+
+  _buildDealerPincode() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter Pincode',
+          inputType: TextInputType.emailAddress,
+          icon: Icons.person,
+          iconColor: Colors
+              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+          textController: controllerPincode,
+          inputAction: TextInputAction.next,
+          autoFocus: false,
+          errorText: null,
+        );
+      },
+    );
+  }
   // Widget build(BuildContext context) {
   //   return Scaffold(
   //     appBar: EmptyAppBar(),
@@ -222,21 +310,4 @@ class _RegistrationState extends State<Registration> {
   //   );
   // }
 
-  Widget _buildUserIdField() {
-    return Observer(
-      builder: (context) {
-        return TextFieldWidget(
-          hint: 'Enter email',
-          inputType: TextInputType.emailAddress,
-          icon: Icons.person,
-          iconColor: Colors
-              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
-          textController: controllerDealerName,
-          inputAction: TextInputAction.next,
-          autoFocus: false,
-          errorText: null,
-        );
-      },
-    );
-  }
 }
