@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                             ),
-                            child: Text("abhishek",
+                            child: Text(currentUser.username ?? "abhishek",
                                 textAlign: TextAlign.left,
                                 textScaleFactor: 2,
                                 style: TextStyle(color: Colors.white))),
