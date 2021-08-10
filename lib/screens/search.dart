@@ -107,13 +107,12 @@ class _SearchState extends State<Search> {
     QueryBuilder<ParseUser> queryUsers =
         QueryBuilder<ParseUser>(ParseUser.forQuery());
     final ParseResponse apiResponse = await queryUsers.query();
-    getMArk();
+    
     if (apiResponse.success && apiResponse.results != null) {
       return apiResponse.results as List<ParseObject>;
     } else {
       print("printing elseeee");
-      getMArk();
-      return [];
+          return [];
     }
   }
 }

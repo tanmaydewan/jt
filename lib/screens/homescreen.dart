@@ -3,6 +3,7 @@ import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/nearbyDealers.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
 import 'package:just_in_time/screens/searchScreen/searchEmployee.dart';
+import 'package:just_in_time/screens/searchScreen/searchsecond.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
 import 'package:just_in_time/widgets/progress_indicator_widget.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -241,8 +242,11 @@ class _HomeScreenState extends State<HomeScreen> {
         .push(MaterialPageRoute(builder: (context) => NearbyDealersScreen()));
   }
 
-  void _didTapOnSearchEmployee(BuildContext context) {}
-
+  void _didTapOnSearchEmployee(BuildContext context) {
+        Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => SearchSecond()));
+  }
+  
   void _showErrorMessage(String message, BuildContext context) {
     if (message.isNotEmpty) {
       showDialog<void>(
