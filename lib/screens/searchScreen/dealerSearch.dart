@@ -18,6 +18,7 @@ class _DealerSearchState extends State<DealerSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[300],
         key: _scaffoldKey,
         body: Column(
           children: [
@@ -64,37 +65,54 @@ class _DealerSearchState extends State<DealerSearch> {
                             );
                           }
 
-                          return ListView.separated(
-                            padding: EdgeInsets.only(top: 10.0),
-                            itemCount: AppConstant.list.length,
-                            itemBuilder: (context, index) {
-                              final title = AppConstant.list[index]["title"];
-                              //final userVerified = user.a) ?? false;
-                              return SizedBox(
-                                  height: 100, // Some height
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(15.0),
+                          return Expanded(
+                            child: Container(
+                              color: Colors.grey[300],
+                              child: ListView.separated(
+                                //padding: EdgeInsets.all( 10.0),
+                                itemCount: AppConstant.list.length,
+                                itemBuilder: (context, index) {
+                                  final title =
+                                      AppConstant.list[index]["title"];
+                                  //final userVerified = user.a) ?? false;
+                                  return SizedBox(
+                                      height: 100, // Some height
                                       child: Expanded(
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                            Text('Dealer Name: $title',
-                                                textAlign: TextAlign.left,
-                                                textScaleFactor: 1.5,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ]))));
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return Divider();
-                            },
+                                          child: Container(
+                                        //padding: EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisSize:
+                                                MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text('Dealer Name: $title',
+                                                  textAlign:
+                                                      TextAlign.left,
+                                                  textScaleFactor: 1.5,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold)),
+                                            ]),
+                                      )));
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return Divider(
+                                    color: Colors.grey[300],
+                                  );
+                                },
+                              ),
+                            ),
                           );
                         }
                     }

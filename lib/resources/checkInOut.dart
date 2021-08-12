@@ -18,38 +18,38 @@ Iterable markerSItr = Iterable.generate(AppConstant.list.length, (index) {
 class AppConstant {
   static List<Map<String, dynamic>> list = [];
   static List<Map<String, dynamic>> listEmp = [
-    {
-      "username": "Karan",
-      "email":"Karan@kubtechsolution.com"
-    },
-    {
-      "username": "Dwight Schrute",
-      "email":"dschrute@company.com"
-    },
-    {
-      "username": "Michael Scott",
-      "email":"mscott@company.com"
-    },
-    { 
-      "username": "Abhishek Attri",
-      "email":"abhishekattri@gmail.com"
-    },
-    { 
-      "username": "Utkarsh Dhiman",
-      "email":"utkarsh@email.com"
-    },
-    { 
-      "username": "Tanmay",
-      "email":"tanmay@gmail.com"
-    },
-   { 
-      "username": "Pranshu",
-      "email":"pranshu@gmail.com"
-    },
-    { 
-      "username": "Chetan",
-      "email":"chetan@mail.com"
-    },
+  //   {
+  //     "username": "Karan",
+  //     "email":"Karan@kubtechsolution.com"
+  //   },
+  //   {
+  //     "username": "Dwight Schrute",
+  //     "email":"dschrute@company.com"
+  //   },
+  //   {
+  //     "username": "Michael Scott",
+  //     "email":"mscott@company.com"
+  //   },
+  //   { 
+  //     "username": "Abhishek Attri",
+  //     "email":"abhishekattri@gmail.com"
+  //   },
+  //   { 
+  //     "username": "Utkarsh Dhiman",
+  //     "email":"utkarsh@email.com"
+  //   },
+  //   { 
+  //     "username": "Tanmay",
+  //     "email":"tanmay@gmail.com"
+  //   },
+  //  { 
+  //     "username": "Pranshu",
+  //     "email":"pranshu@gmail.com"
+  //   },
+  //   { 
+  //     "username": "Chetan",
+  //     "email":"chetan@mail.com"
+  //   },
 
   ];
 }
@@ -100,27 +100,28 @@ void getEmp() async {
       ParseGeoPoint(latitude: 31.346822921333068, longitude: 75.58387396589404);
 
   final QueryBuilder<ParseObject> queryUsers =
-      QueryBuilder<ParseObject>(ParseObject("User"));
+      QueryBuilder<ParseUser>(ParseUser.forQuery());
+      
 
   final ParseResponse apiResponse = await queryUsers.query();
 
   if (apiResponse.success && apiResponse.results != null) {
-    for (var o in apiResponse.results! as List<ParseObject>) {
-      var lat = o.get<ParseGeoPoint>('location')!.latitude;
-      var lon = o.get<ParseGeoPoint>('location')!.longitude;
-      print(lon);
+    for (var o in apiResponse.results! ) {
+      print(o);
+      var h= o['username'];
+      print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh$h");
       var ab = {
-        'NameEmp': o['Username'],
-        "id": "4",
-        'EmailEmp': o['email'],
+        'username': o['username'],
+        "profileImage":o["profileImg"],
+        "admin":o["isAdmin"]
+        //'email': o['email'],
         
       };
+      print(AppConstant.listEmp);
 
-      AppConstant.list.add(ab);
-      print(
-          'City: ${o.get<String>('name')} - Location: ${o.get<ParseGeoPoint>('location')!.latitude}, ${o.get<ParseGeoPoint>('location')!.longitude}');
-      print(AppConstant.list);
+      AppConstant.listEmp.add(ab);
+    
     }
   }
-  ;
+  
 }
