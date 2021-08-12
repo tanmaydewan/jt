@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:just_in_time/resources/location.dart';
+import 'package:just_in_time/screens/homescreen.dart';
+import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 Future<void> saveReg(String dealerName, String address, String pincode,
@@ -18,7 +22,15 @@ Future<void> saveReg(String dealerName, String address, String pincode,
     ..set('pincode', pincode)
     ..set('TaxNumber', taxNumber)
     ..set("dealerImage", imagePath);
-  await regObj.save();
+  // await regObj.save();
+
+  final ParseResponse parseResponse = await regObj.save();
+  if (parseResponse.success) {
+    print("Dealer saved");
+    // _navigateToNextScreen(context);
+  } else {
+    print("Dealer not save due to error");
+  }
 }
 
 Future<void> dealerStatus(String dealerName, String discription) async {
@@ -35,3 +47,12 @@ Future<void> dealerStatus(String dealerName, String discription) async {
     ..set('location', location);
   await regObj.save();
 }
+
+void _navigateToNextScreen(BuildContext context) {
+  Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+}
+
+// void _backPressed() {
+//   Navigator.of(context);
+// }

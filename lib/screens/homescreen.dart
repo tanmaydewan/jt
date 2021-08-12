@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_in_time/login.dart';
 import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/nearbyDealers.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
@@ -107,9 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textAlign: TextAlign.left,
                                 textScaleFactor: 2,
                                 style: TextStyle(color: Colors.white))),
+                        _optionsWidgetRow3(),
                         SizedBox(height: 60.0),
                         _optionsWidgetRow1(),
-                        _optionsWidgetRow2()
+                        _optionsWidgetRow2(),
                       ],
                     )),
               ),
@@ -222,6 +224,56 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
+  Widget _optionsWidgetRow3() {
+    return SizedBox(
+        height: 100,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+                onTap: () => {_doUserLogout(context)},
+                child: Card(
+                    child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              // IconButton(
+                              //     onPressed: null,
+                              //     icon: Image.asset(
+                              //       "assets/checkin_out.jpeg",
+                              //       height: 50,
+                              //       width: 50,
+                              //     )),
+                              Text("Logout",
+                                  textAlign: TextAlign.left,
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(color: Colors.black54))
+                            ])))),
+          ],
+        ));
+  }
+
+  void _doUserLogout(BuildContext context) async {
+    final user = await ParseUser.currentUser() as ParseUser;
+    var response = await user.logout();
+
+    if (response.success) {
+      print("logout successfull");
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(
+              builder: (BuildContext context) => new LogInScreen()));
+      setState(() {
+        var isLoggedIn = false;
+      });
+    } else {
+      print("logout unseccessful");
+    }
+  }
+
   void _didTapRegisterEmployee(BuildContext context) {
     if (isAdmin()) {
       Navigator.of(context)
@@ -243,10 +295,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _didTapOnSearchEmployee(BuildContext context) {
-        Navigator.of(context)
+    Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => SearchSecond()));
   }
-  
+
   void _showErrorMessage(String message, BuildContext context) {
     if (message.isNotEmpty) {
       showDialog<void>(
