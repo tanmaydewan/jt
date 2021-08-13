@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/login.dart';
+import 'package:just_in_time/screens/dealerSearch.dart';
 import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/nearbyDealers.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
@@ -201,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ])))),
             Spacer(),
             GestureDetector(
-                onTap: () => {_didTapOnSearchEmployee(context)},
+                onTap: () => {_didTapOnSearchDealer(context)},
                 child: Card(
                     child: Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -215,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 50,
                                     width: 50,
                                   )),
-                              Text("Search Employee",
+                              Text("Search Dealer",
                                   textAlign: TextAlign.left,
                                   textScaleFactor: 1.0,
                                   style: TextStyle(color: Colors.black54))
@@ -294,9 +295,9 @@ class _HomeScreenState extends State<HomeScreen> {
         .push(MaterialPageRoute(builder: (context) => NearbyDealersScreen()));
   }
 
-  void _didTapOnSearchEmployee(BuildContext context) {
+  void _didTapOnSearchDealer(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SearchSecond()));
+        .push(MaterialPageRoute(builder: (context) => DealerSearchScreen()));
   }
 
   void _showErrorMessage(String message, BuildContext context) {
