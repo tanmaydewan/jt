@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/login.dart';
 import 'package:just_in_time/screens/dealerSearch.dart';
+import 'package:just_in_time/screens/employeeSearch.dart';
 import 'package:just_in_time/screens/employeeRegistration.dart';
 import 'package:just_in_time/screens/nearbyDealers.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
-import 'package:just_in_time/screens/searchScreen/searchEmployee.dart';
-import 'package:just_in_time/screens/searchScreen/searchsecond.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
-import 'package:just_in_time/widgets/progress_indicator_widget.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -109,10 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textAlign: TextAlign.left,
                                 textScaleFactor: 2,
                                 style: TextStyle(color: Colors.white))),
-                        _optionsWidgetRow3(),
-                        SizedBox(height: 60.0),
+                        _logoutWidget(),
+                        SizedBox(height: 50.0),
                         _optionsWidgetRow1(),
                         _optionsWidgetRow2(),
+                        _optionsWidgetRow3()
                       ],
                     )),
               ),
@@ -227,34 +226,58 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _optionsWidgetRow3() {
     return SizedBox(
-        height: 100,
+        height: 150,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             GestureDetector(
-                onTap: () => {_doUserLogout(context)},
+                onTap: () => {_didTapOnSearchEmployee(context)},
                 child: Card(
                     child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              // IconButton(
-                              //     onPressed: null,
-                              //     icon: Image.asset(
-                              //       "assets/checkin_out.jpeg",
-                              //       height: 50,
-                              //       width: 50,
-                              //     )),
-                              Text("Logout",
+                              IconButton(
+                                  onPressed: null,
+                                  icon: Image.asset(
+                                    "assets/search_icon.png",
+                                    height: 50,
+                                    width: 50,
+                                  )),
+                              Text("Search Employee",
                                   textAlign: TextAlign.left,
                                   textScaleFactor: 1.0,
                                   style: TextStyle(color: Colors.black54))
-                            ])))),
+                            ]))))
           ],
         ));
+  }
+
+  Widget _logoutWidget() {
+    return Row(mainAxisSize: MainAxisSize.min, children: [
+      GestureDetector(
+          onTap: () => {_doUserLogout(context)},
+          child: Card(
+              child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    // IconButton(
+                    //     onPressed: null,
+                    //     icon: Image.asset(
+                    //       "assets/checkin_out.jpeg",
+                    //       height: 50,
+                    //       width: 50,
+                    //     )),
+                    Text("Logout",
+                        textAlign: TextAlign.left,
+                        textScaleFactor: 1.0,
+                        style: TextStyle(color: Colors.black54))
+                  ]))))
+    ]);
   }
 
   void _doUserLogout(BuildContext context) async {
@@ -298,6 +321,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void _didTapOnSearchDealer(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => DealerSearchScreen()));
+  }
+
+  void _didTapOnSearchEmployee(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => EmployeeSearchScreen()));
   }
 
   void _showErrorMessage(String message, BuildContext context) {

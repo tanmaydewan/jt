@@ -18,39 +18,38 @@ Iterable markerSItr = Iterable.generate(AppConstant.list.length, (index) {
 class AppConstant {
   static List<Map<String, dynamic>> list = [];
   static List<Map<String, dynamic>> listEmp = [
-  //   {
-  //     "username": "Karan",
-  //     "email":"Karan@kubtechsolution.com"
-  //   },
-  //   {
-  //     "username": "Dwight Schrute",
-  //     "email":"dschrute@company.com"
-  //   },
-  //   {
-  //     "username": "Michael Scott",
-  //     "email":"mscott@company.com"
-  //   },
-  //   { 
-  //     "username": "Abhishek Attri",
-  //     "email":"abhishekattri@gmail.com"
-  //   },
-  //   { 
-  //     "username": "Utkarsh Dhiman",
-  //     "email":"utkarsh@email.com"
-  //   },
-  //   { 
-  //     "username": "Tanmay",
-  //     "email":"tanmay@gmail.com"
-  //   },
-  //  { 
-  //     "username": "Pranshu",
-  //     "email":"pranshu@gmail.com"
-  //   },
-  //   { 
-  //     "username": "Chetan",
-  //     "email":"chetan@mail.com"
-  //   },
-
+    //   {
+    //     "username": "Karan",
+    //     "email":"Karan@kubtechsolution.com"
+    //   },
+    //   {
+    //     "username": "Dwight Schrute",
+    //     "email":"dschrute@company.com"
+    //   },
+    //   {
+    //     "username": "Michael Scott",
+    //     "email":"mscott@company.com"
+    //   },
+    //   {
+    //     "username": "Abhishek Attri",
+    //     "email":"abhishekattri@gmail.com"
+    //   },
+    //   {
+    //     "username": "Utkarsh Dhiman",
+    //     "email":"utkarsh@email.com"
+    //   },
+    //   {
+    //     "username": "Tanmay",
+    //     "email":"tanmay@gmail.com"
+    //   },
+    //  {
+    //     "username": "Pranshu",
+    //     "email":"pranshu@gmail.com"
+    //   },
+    //   {
+    //     "username": "Chetan",
+    //     "email":"chetan@mail.com"
+    //   },
   ];
 }
 
@@ -101,27 +100,23 @@ void getEmp() async {
 
   final QueryBuilder<ParseObject> queryUsers =
       QueryBuilder<ParseUser>(ParseUser.forQuery());
-      
 
   final ParseResponse apiResponse = await queryUsers.query();
 
   if (apiResponse.success && apiResponse.results != null) {
-    for (var o in apiResponse.results! ) {
+    for (var o in apiResponse.results!) {
       print(o);
-      var h= o['username'];
+      var h = o['username'];
       print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh$h");
       var ab = {
         'username': o['username'],
-        "profileImage":o["profileImg"],
-        "admin":o["isAdmin"]
+        "profileImage": o["profileImg"],
+        "admin": o["isAdmin"]
         //'email': o['email'],
-        
       };
       print(AppConstant.listEmp);
 
       AppConstant.listEmp.add(ab);
-    
     }
   }
-  
 }

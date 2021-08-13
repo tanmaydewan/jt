@@ -18,10 +18,9 @@ class _SearchEmployee extends State<SearchEmployee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[300],
         key: _scaffoldKey,
         body: Column(
-        
           children: [
             SizedBox(
               height: 30,
@@ -34,7 +33,9 @@ class _SearchEmployee extends State<SearchEmployee> {
                     height: 40,
                     width: 40,
                   )),
-                  SizedBox(width: 40,),
+              SizedBox(
+                width: 40,
+              ),
               Text("Employee Details",
                   textAlign: TextAlign.left,
                   textScaleFactor: 2.5,
@@ -81,41 +82,42 @@ class _SearchEmployee extends State<SearchEmployee> {
                                     final img = AppConstant.listEmp[index]
                                             ["profileImage"] ??
                                         "https://avatars.githubusercontent.com/u/17007144?v=4";
-                                    final roleCheck = AppConstant.listEmp[index]["admin"];
+                                    final roleCheck =
+                                        AppConstant.listEmp[index]["admin"];
                                     final adminRole;
-                                    if(roleCheck==true)
-                                    {
+                                    if (roleCheck == true) {
                                       adminRole = "Admin";
+                                    } else {
+                                      adminRole = "Employee";
                                     }
-                                    else
-                                    {adminRole = "Employee";}
                                     // final email = AppConstant.listEmp[index]["email"];
                                     //final userVerified = user.a) ?? false;
                                     return SizedBox(
                                         height: 100, // Some height
                                         child: Expanded(
                                             child: Container(
-                                              padding: EdgeInsets.all(8),
-                                              decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                              //color: Colors.lightGreen,
-                                              child: Row(
-                                              
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          //color: Colors.lightGreen,
+                                          child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
                                                 CircleAvatar(
                                                     radius: 55,
                                                     backgroundColor:
                                                         Colors.blueGrey[300],
                                                     child: ClipRRect(
                                                       borderRadius:
-                                                          BorderRadius.circular(50),
+                                                          BorderRadius.circular(
+                                                              50),
                                                       child: Image.network(
                                                         '$img',
                                                         width: 100,
@@ -123,36 +125,45 @@ class _SearchEmployee extends State<SearchEmployee> {
                                                         fit: BoxFit.fill,
                                                       ),
                                                     )),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    
                                                     Text(namee,
-                                                        textAlign: TextAlign.left,
+                                                        textAlign:
+                                                            TextAlign.left,
                                                         textScaleFactor: 1.7,
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontWeight:
-                                                                FontWeight.bold)),
-                                                  Text(adminRole,
-                                                    textAlign: TextAlign.left,
-                                                    textScaleFactor: 1.5,
-                                                    style: TextStyle(
-                                                        color: Colors.black45,
-                                                        fontWeight: FontWeight.bold)),
+                                                                FontWeight
+                                                                    .bold)),
+                                                    Text(adminRole,
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        textScaleFactor: 1.5,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black45,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
                                                   ],
                                                 ),
-                                                 
                                               ]),
-                                            )));
+                                        )));
                                   },
                                   separatorBuilder:
                                       (BuildContext context, int index) {
-                                    return Divider(color: Colors.grey[300],);
+                                    return Divider(
+                                      color: Colors.grey[300],
+                                    );
                                   },
                                 ),
                               ),
@@ -169,7 +180,6 @@ class _SearchEmployee extends State<SearchEmployee> {
   Future<List<ParseObject>> getEmployee() async {
     QueryBuilder<ParseUser> queryUsers =
         QueryBuilder<ParseUser>(ParseUser.forQuery());
-    getEmp();
     final ParseResponse apiResponse = await queryUsers.query();
     if (apiResponse.success && apiResponse.results != null) {
       return apiResponse.results as List<ParseObject>;
