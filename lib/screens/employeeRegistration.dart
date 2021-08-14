@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -22,7 +23,7 @@ class _EmployeRegistration extends State<EmployeRegistration> {
   final controllerUsername = TextEditingController();
 
   final controllerPassword = TextEditingController();
-
+  final controllerAdharNumber = TextEditingController();
   final controllerEmail = TextEditingController();
   String encodedImage = "";
   var _isLoading;
@@ -45,8 +46,48 @@ class _EmployeRegistration extends State<EmployeRegistration> {
     return Scaffold(
       primary: true,
       appBar: EmptyAppBar(),
-      body: _buildBody(),
+      body: _buildFirstBody(),
     );
+  }
+
+  Widget _buildFirstBody() {
+    return SingleChildScrollView(
+        child: Row(children: <Widget>[
+      Expanded(
+          child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 28.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  // SizedBox(height: 24.0),
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            onPressed: () => _backPressed(),
+                            icon: Image.asset(
+                              "assets/back_icon.png",
+                              height: 40,
+                              width: 40,
+                            )),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text("Register Employee",
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 2.0,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold))
+                      ]),
+                  _buildBody(),
+                ],
+              ))),
+    ]));
   }
 
   Widget _buildBody() {
@@ -81,17 +122,34 @@ class _EmployeRegistration extends State<EmployeRegistration> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AppIconWidget(image: 'assets/ic_logo.png'),
-            SizedBox(height: 64.0),
+            // AppIconWidget(image: 'assets/ic_logo.png'),
+            SizedBox(height: 50.0),
+            _buildImage(),
             _buildUserName(),
             _buildUserEmail(),
             _buildPasswordField(),
-            _buildImage(),
+            _buildAdhaarNumber(),
             SizedBox(height: 24.0),
             _buildSignInButton()
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildAdhaarNumber() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter Aadhar Number',
+          inputType: TextInputType.emailAddress,
+          padding: EdgeInsets.only(top: 16.0),
+          icon: Icons.credit_card,
+          iconColor: Colors.black54,
+          textController: controllerAdharNumber,
+          errorText: null,
+        );
+      },
     );
   }
 
@@ -107,25 +165,25 @@ class _EmployeRegistration extends State<EmployeRegistration> {
                   getImage();
                 },
                 child: CircleAvatar(
-                  radius: 55,
+                  radius: 60,
                   backgroundColor: kColour,
                   child: _image != null
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          // child: Image.file(
-                          //   // File(_image!.path),
-                          //   File(_imageCamera!, _image!.path),
-                          //   width: 100,
-                          //   height: 100,
-                          //   fit: BoxFit.fitHeight,
-                          // ),
+                          child: Image.file(
+                            // File(_image!.path),
+                            File(_image!.path),
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fitHeight,
+                          ),
                         )
                       : Container(
                           decoration: BoxDecoration(
                               color: Colors.grey[200],
                               borderRadius: BorderRadius.circular(50)),
-                          width: 100,
-                          height: 100,
+                          width: 120,
+                          height: 120,
                           child: Center(
                               child: Text(
                             "Employe Photo",
@@ -253,7 +311,11 @@ class _EmployeRegistration extends State<EmployeRegistration> {
     var username = controllerUsername.text.trim();
     var email = controllerEmail.text.trim();
     var password = controllerPassword.text.trim();
-    if (email.length == 0 || password.length == 0 || username.length == 0) {
+    var adharNumber = controllerAdharNumber.text.trim();
+    if (email.length == 0 ||
+        password.length == 0 ||
+        username.length == 0 ||
+        adharNumber.length == 0) {
       return false;
     }
     return true;
@@ -264,20 +326,14 @@ class _EmployeRegistration extends State<EmployeRegistration> {
     final username = controllerUsername.text.trim();
     final email = controllerEmail.text.trim();
     final password = controllerPassword.text.trim();
+    final adharNumber = controllerAdharNumber.text.trim();
 
-    final user = ParseUser.createUser(username, password, email);
-    final regImage = ParseObject('_User')..set('profileImg', imageUrl);
+    var user = ParseUser.createUser(username, password, email);
+    user..set('profileImg', imageUrl)..set("adhaarNumber", adharNumber);
 
-    final ParseResponse parseResponse = await regImage.save();
+    // final ParseResponse parseResponse = await regImage.save();
 
     var response = await user.save();
-
-    if (parseResponse.success) {
-      print("image saved");
-      // _navigateToNextScreen(context);
-    } else {
-      print(response.error);
-    }
     if (response.success) {
       // AlertDialog(
       //   title: const Text('Successfull'),
@@ -301,14 +357,11 @@ class _EmployeRegistration extends State<EmployeRegistration> {
   Future getImage() async {
     final image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 30);
-    final imageCamera = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 30);
     var res = await uploadImage(image!.path);
     print(res);
     setState(() {
       _selectedImageUrls = res;
       _image = image;
-      _imageCamera = imageCamera;
     });
     // var file = await _downloadFile(url);
   }
@@ -329,6 +382,10 @@ class _EmployeRegistration extends State<EmployeRegistration> {
     } catch (error) {
       return "";
     }
+  }
+
+  void _backPressed() {
+    Navigator.of(context).pop();
   }
 
   void _navigateToNextScreen(BuildContext context) {

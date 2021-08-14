@@ -21,6 +21,7 @@ class _RegistrationState extends State<Registration> {
   final controllerLocation = TextEditingController();
   final controllerPincode = TextEditingController();
   final controllerTaxNumber = TextEditingController();
+  final controllerPhoneNumber = TextEditingController();
   late final imagePath;
   String encodedImage = "";
 
@@ -62,14 +63,21 @@ class _RegistrationState extends State<Registration> {
 
   void doUserRegistration() async {
     var imageUrl = _selectedImageUrl != null ? _selectedImageUrl! : "";
-    await saveReg(controllerDealerName.text, controllerAddress.text,
-        controllerPincode.text, controllerTaxNumber.text, imageUrl);
+    await saveReg(
+      controllerDealerName.text,
+      controllerAddress.text,
+      controllerPincode.text,
+      controllerTaxNumber.text,
+      controllerPhoneNumber.text,
+      imageUrl,
+    );
 
     setState(() {
       controllerDealerName.clear();
       controllerAddress.clear();
       controllerPincode.clear();
       controllerTaxNumber.clear();
+      controllerPhoneNumber.clear();
       _image = null;
     });
   }
@@ -84,12 +92,12 @@ class _RegistrationState extends State<Registration> {
   }
 
   Widget _buildBody() {
-    return Material(
+    return SingleChildScrollView(
         child: Row(children: <Widget>[
       Expanded(
           child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -132,6 +140,10 @@ class _RegistrationState extends State<Registration> {
                     height: 8,
                   ),
                   _buildTaxNumber(),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  _buildPhoneNumber(),
                   SizedBox(
                     height: 8,
                   ),
@@ -203,6 +215,24 @@ class _RegistrationState extends State<Registration> {
           iconColor: Colors
               .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
           textController: controllerTaxNumber,
+          inputAction: TextInputAction.next,
+          autoFocus: false,
+          errorText: null,
+        );
+      },
+    );
+  }
+
+  Widget _buildPhoneNumber() {
+    return Observer(
+      builder: (context) {
+        return TextFieldWidget(
+          hint: 'Enter Phone Number',
+          inputType: TextInputType.emailAddress,
+          icon: Icons.call,
+          iconColor: Colors
+              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+          textController: controllerPhoneNumber,
           inputAction: TextInputAction.next,
           autoFocus: false,
           errorText: null,
