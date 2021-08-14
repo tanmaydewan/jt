@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:just_in_time/widgets/empty_app_bar_widget.dart';
 import 'package:just_in_time/widgets/progress_indicator_widget.dart';
 import 'package:just_in_time/widgets/textfield_widget.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:just_in_time/screens/profileDetail.dart';
 
 class EmployeeSearchScreen extends StatefulWidget {
   @override
@@ -105,7 +105,7 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
                     final _employee = employeeList[index];
                     //final userVerified = user.a) ?? false;
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () => _didTaponEmployee(context, _employee),
                       child: _buildEmployeeTile(_employee),
                     );
                   },
@@ -117,22 +117,18 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
   }
 
   Widget _buildSearchField() {
-    return Observer(
-      builder: (context) {
-        return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: TextFieldWidget(
-              hint: 'Search',
-              icon: Icons.search,
-              iconColor: Colors
-                  .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
-              textController: _employeesearchController,
-              inputAction: TextInputAction.next,
-              autoFocus: false,
-              errorText: null,
-            ));
-      },
-    );
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: TextFieldWidget(
+          hint: 'Search',
+          icon: Icons.search,
+          iconColor: Colors
+              .black54, //_themeStore.darkMode ? Colors.white70 : Colors.black54,
+          textController: _employeesearchController,
+          inputAction: TextInputAction.next,
+          autoFocus: false,
+          errorText: null,
+        ));
   }
 
   Widget _buildSearchemployee() {
@@ -165,8 +161,9 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
     // var lat = _dealer.get<ParseGeoPoint>('location')!.latitude;
     // var lon = _dealer.get<ParseGeoPoint>('location')!.longitude;
     final namee = _employee["username"];
+    final email = _employee["email"] ?? "";
     final img = _employee["profileImg"] ??
-        "https://avatars.githubusercontent.com/u/17007144?v=4";
+        "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png";
     final roleCheck = _employee["admin"];
     var adminRole = "Employee";
     if (roleCheck == true) {
@@ -203,6 +200,7 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(namee,
+                        overflow: TextOverflow.fade,
                         textAlign: TextAlign.left,
                         textScaleFactor: 1.4,
                         style: TextStyle(
@@ -210,6 +208,11 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
                     Text(adminRole,
                         textAlign: TextAlign.left,
                         textScaleFactor: 1,
+                        style: TextStyle(color: Colors.black45)),
+                    Text(email,
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.left,
+                        textScaleFactor: 1.1,
                         style: TextStyle(color: Colors.black45)),
                   ],
                 ),
@@ -286,5 +289,10 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
       _isLoading = false;
       _employeeLoaded = true;
     });
+  }
+
+  void _didTaponEmployee(BuildContext context, ParseObject employee) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ProfileScreen(selectedEmployee: employee)));
   }
 }

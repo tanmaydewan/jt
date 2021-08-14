@@ -180,6 +180,7 @@ class _SearchEmployee extends State<SearchEmployee> {
   Future<List<ParseObject>> getEmployee() async {
     QueryBuilder<ParseUser> queryUsers =
         QueryBuilder<ParseUser>(ParseUser.forQuery());
+    getEmp();
     final ParseResponse apiResponse = await queryUsers.query();
     if (apiResponse.success && apiResponse.results != null) {
       return apiResponse.results as List<ParseObject>;
