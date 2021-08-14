@@ -30,7 +30,7 @@ class _EmployeRegistration extends State<EmployeRegistration> {
 
   String? _selectedImageUrls;
   XFile? _image;
-  XFile? _imageCamera;
+
   late final imagePath;
 
   @override
@@ -331,6 +331,8 @@ class _EmployeRegistration extends State<EmployeRegistration> {
     var user = ParseUser.createUser(username, password, email);
     user..set('profileImg', imageUrl)..set("adhaarNumber", adharNumber);
 
+    var res = await uploadImage(_selectedImageUrls);
+    print(res);
     // final ParseResponse parseResponse = await regImage.save();
 
     var response = await user.save();
@@ -357,10 +359,8 @@ class _EmployeRegistration extends State<EmployeRegistration> {
   Future getImage() async {
     final image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 30);
-    var res = await uploadImage(image!.path);
-    print(res);
     setState(() {
-      _selectedImageUrls = res;
+      _selectedImageUrls = image!.path;
       _image = image;
     });
     // var file = await _downloadFile(url);

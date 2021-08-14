@@ -208,7 +208,7 @@ class _CheckinoutScreenState extends State<CheckinoutScreen> {
 
   void _didTapClickPhoto(BuildContext context) async {
     final image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 30);
+        .pickImage(source: ImageSource.camera, imageQuality: 30);
     setState(() {
       _selectedImage = File(image!.path);
     });
@@ -220,11 +220,17 @@ class _CheckinoutScreenState extends State<CheckinoutScreen> {
     });
     if (_selectedImage == null) {
       _showErrorMessage("Please take a live photo to checkin", context);
+      setState(() {
+        _isLoading = false;
+      });
       return;
     }
     var imageUrl = await uploadImage(_selectedImage!.path);
     if (imageUrl.length == 0) {
       _showErrorMessage("Unable to upload photo, Please try again", context);
+      setState(() {
+        _isLoading = false;
+      });
       return;
     }
     var checkinObjectResp = await logDealerVisit(imageUrl);

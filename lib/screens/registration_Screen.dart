@@ -52,16 +52,18 @@ class _RegistrationState extends State<Registration> {
   Future getImage() async {
     final image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 30);
-    var res = await uploadImage(image!.path);
-    print(res);
+    // var res = await uploadImage(image!.path);
+    // print(res);
     setState(() {
-      _selectedImageUrl = res;
+      _selectedImageUrl = (image!.path);
       _image = image;
     });
     // var file = await _downloadFile(url);
   }
 
   void doUserRegistration() async {
+    var res = await uploadImage(_selectedImageUrl);
+    print(res);
     var imageUrl = _selectedImageUrl != null ? _selectedImageUrl! : "";
     await saveReg(
       controllerDealerName.text,
