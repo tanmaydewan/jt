@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:just_in_time/resources/location.dart';
-import 'package:just_in_time/screens/homescreen.dart';
-import 'package:just_in_time/screens/options.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 Future<void> saveReg(String dealerName, String address, String pincode,
@@ -49,10 +45,6 @@ Future<void> dealerStatus(String dealerName, String discription) async {
   await regObj.save();
 }
 
-void _navigateToNextScreen(BuildContext context) {
-  Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => HomeScreen()));
-}
 
 // void _backPressed() {
 //   Navigator.of(context);

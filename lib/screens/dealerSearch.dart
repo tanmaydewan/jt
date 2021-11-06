@@ -49,8 +49,8 @@ class _DealerSearchScreenState extends State<DealerSearchScreen> {
 
   Widget _buildBody() {
     return Material(
-      child: Expanded(
-          flex: 1,
+      child: Container(
+          height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -93,7 +93,8 @@ class _DealerSearchScreenState extends State<DealerSearchScreen> {
   Widget _buildDetails(List<ParseObject>? dealerList) {
     return (dealerList != null && dealerList.length == 0)
         ? Text("No dealers found")
-        : Expanded(
+        : Container(
+          height: MediaQuery.of(context).size.height,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,

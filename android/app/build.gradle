@@ -46,10 +46,10 @@ android {
     buildTypes {
             release {
                 // if everything ok then not add 
-                //minifyEnabled true 
+                // minifyEnabled true 
                 //another you can remove minifyEnabled true
-               // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.release
+            //    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.debug
             }
         }
 }

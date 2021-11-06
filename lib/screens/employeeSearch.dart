@@ -48,8 +48,8 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
 
   Widget _buildBody() {
     return Material(
-      child: Expanded(
-          flex: 1,
+      child: Container(
+          height:MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +92,8 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
   Widget _buildDetails(List<ParseObject>? employeeList) {
     return (employeeList != null && employeeList.length == 0)
         ? Text("No employee found")
-        : Expanded(
+        : Container(
+          height: MediaQuery.of(context).size.height,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -171,7 +172,8 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
     }
     return SizedBox(
         height: 100, // Some height
-        child: Expanded(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
             child: Card(
                 child: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -220,15 +222,6 @@ class _EmployeeSearchScreenState extends State<EmployeeSearchScreen> {
         ))));
   }
 
-  Widget _getDeaerImage(String? dealerImage) {
-    const palceholderAsset = 'assets/placeholder.png';
-    return SizedBox(
-        height: 80, // Some height
-        child: dealerImage != null
-            ? FadeInImage.assetNetwork(
-                placeholder: palceholderAsset, image: dealerImage)
-            : Image.asset(palceholderAsset));
-  }
 
   var lat, lon;
   List<ParseObject>? _employee;

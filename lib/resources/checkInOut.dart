@@ -91,12 +91,10 @@ void getMArk() async {
       print(AppConstant.list);
     }
   }
-  ;
+  
 }
 
 void getEmp() async {
-  var gp =
-      ParseGeoPoint(latitude: 31.346822921333068, longitude: 75.58387396589404);
 
   final QueryBuilder<ParseObject> queryUsers =
       QueryBuilder<ParseUser>(ParseUser.forQuery());

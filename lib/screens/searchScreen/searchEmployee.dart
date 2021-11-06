@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/resources/checkInOut.dart';
-import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:just_in_time/screens/homescreen.dart';
-import 'package:just_in_time/screens/searchScreen/searchsecond.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 var employeeName;

@@ -19,7 +19,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   _ProfileScreenState({required this.selectedEmployee}) : super();
 
-  TextEditingController _noteEditorController = TextEditingController();
 
   final ParseObject selectedEmployee;
   List<ParseObject>? _checkins;

@@ -10,8 +10,7 @@ class CustomProgressIndicatorWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: 100,
-        constraints: BoxConstraints.expand(),
+        height: MediaQuery.of(context).size.height*.8,
         child: FittedBox(
           fit: BoxFit.none,
           child: SizedBox(

@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _isLoading;
   late ParseUser currentUser;
 
   Future<ParseUser> getUser(BuildContext context) async {
@@ -31,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     setState(() {
-      _isLoading = false;
       manger();
     });
   }
@@ -58,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBody() {
     return Container(
-        constraints: BoxConstraints.expand(),
+      height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
           image: AssetImage("assets/home_back.jpeg"),
@@ -292,7 +290,6 @@ class _HomeScreenState extends State<HomeScreen> {
           new MaterialPageRoute(
               builder: (BuildContext context) => new LogInScreen()));
       setState(() {
-        var isLoggedIn = false;
       });
     } else {
       print("logout unseccessful");

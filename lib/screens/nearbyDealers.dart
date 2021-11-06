@@ -40,53 +40,52 @@ class _NearbydealersScreenState extends State<NearbyDealersScreen> {
 
   Widget _buildBody() {
     return Material(
-      child: Expanded(
-          flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 24.0),
-              _dealersLoaded
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                          IconButton(
-                              onPressed: () => _backPressed(),
-                              icon: Image.asset(
-                                "assets/back_icon.png",
-                                height: 40,
-                                width: 40,
-                              )),
-                          Text("Nearby Dealers",
-                              textAlign: TextAlign.left,
-                              textScaleFactor: 2.0,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold))
-                        ])
-                  : Column(),
-              SizedBox(height: 20.0),
-              _dealersLoaded
-                  ? _buildDetails()
-                  : Text("Please Wait..",
-                      textAlign: TextAlign.left,
-                      textScaleFactor: 2.0,
-                      style: TextStyle(color: Colors.black54)),
-              Visibility(
-                visible: _isLoading,
-                child: CustomProgressIndicatorWidget(),
-              )
-            ],
-          )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 24.0),
+          _dealersLoaded
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                      IconButton(
+                          onPressed: () => _backPressed(),
+                          icon: Image.asset(
+                            "assets/back_icon.png",
+                            height: 40,
+                            width: 40,
+                          )),
+                      Text("Nearby Dealers",
+                          textAlign: TextAlign.left,
+                          textScaleFactor: 2.0,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold))
+                    ])
+              : Column(),
+          SizedBox(height: 20.0),
+          _dealersLoaded
+              ? _buildDetails()
+              : Text("Please Wait..",
+                  textAlign: TextAlign.left,
+                  textScaleFactor: 2.0,
+                  style: TextStyle(color: Colors.black54)),
+          Visibility(
+            visible: _isLoading,
+            child: CustomProgressIndicatorWidget(),
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildDetails() {
     return (_dealers != null && _dealers!.length == 0)
         ? Text("No dealers found nearby")
-        : Expanded(
+        : Container(
+          height: MediaQuery.of(context).size.height *.8,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -124,7 +123,7 @@ class _NearbydealersScreenState extends State<NearbyDealersScreen> {
         height: 100, // Some height
         child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Expanded(
+            child: Container(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -162,7 +161,6 @@ class _NearbydealersScreenState extends State<NearbyDealersScreen> {
 
   var lat, lon;
   List<ParseObject>? _dealers;
-  ParseObject? _selectedDealer;
   void _getLocation() async {
     List a = await Location().getCurrentLocation();
     if (a.length >= 2) {

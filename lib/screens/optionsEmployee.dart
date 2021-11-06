@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_in_time/list.dart';
 import 'package:just_in_time/screens/ReuseTile.dart';
-import 'package:just_in_time/screens/employeeRegistration.dart';
-import 'package:just_in_time/screens/Check_IN_OUT.dart';
 import 'package:just_in_time/screens/registration_Screen.dart';
-import 'package:just_in_time/screens/search.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +24,6 @@ class OptionsEmployee extends StatelessWidget {
               child: Container(
                   width: 100, height: 100, child: CircularProgressIndicator()),
             );
-            break;
           default:
             return WillPopScope(
               onWillPop: () async => false,
