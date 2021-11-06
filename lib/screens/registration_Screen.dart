@@ -163,7 +163,7 @@ class _RegistrationState extends State<Registration> {
     // return Observer(
     //   builder: (context) {
     return TextFieldWidget(
-      hint: 'Enter Deale Name',
+      hint: 'Enter Dealer Name',
       inputType: TextInputType.emailAddress,
       icon: Icons.person,
       iconColor: Colors
@@ -179,7 +179,7 @@ class _RegistrationState extends State<Registration> {
 
   Widget _buildDealerAdress() {
     return TextFieldWidget(
-      hint: 'Enter Adress',
+      hint: 'Enter Address',
       inputType: TextInputType.emailAddress,
       icon: Icons.email,
       iconColor: Colors

@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     setState(() {
       _isLoading = false;
+      manger();
     });
   }
 
@@ -349,5 +350,13 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       );
     }
+  }
+  Future<void> manger() async {
+    final user = await ParseUser.currentUser() as ParseUser;
+     var queryBuilder = QueryBuilder<ParseObject>(ParseObject('_User'))
+        ..whereEqualTo("tanmay", user.toPointer());
+final ParseResponse a = await queryBuilder.query();
+  print(a.results);
+      
   }
 }
